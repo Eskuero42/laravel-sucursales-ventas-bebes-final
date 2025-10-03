@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+
+<head>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="author" content="SemiColonWeb">
+    <meta name="description"
+        content="Get Canvas to build powerful websites easily with the Highly Customizable &amp; Best Selling Bootstrap Template, today.">
+
+    <!-- Font Imports -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital@0;1&display=swap"
+        rel="stylesheet">
+
+    <!-- Core Style -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Font Icons -->
+    <link rel="stylesheet" href="css/font-icons.css">
+
+    <!-- Plugins/Components CSS -->
+    <link rel="stylesheet" href="css/swiper.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/custom.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Plugins/Components CSS -->
+    <link rel="stylesheet" href="css/components/radio-checkbox.css"><!-- Radio Checkbox Plugin -->
+    <!-- Plugins/Components CSS -->
+    <link rel="stylesheet" href="css/components/ion.rangeslider.css">
+
+    <!-- Document Title
+	============================================= -->
+
+    <style>
+        @media (min-width: 992px) {
+            .top-links-item {
+                border-left: 0;
+            }
+
+            .header-misc-icon>a {
+                width: 1.5rem;
+                height: 1.5rem;
+                font-size: 1.5rem;
+                line-height: 1.5rem;
+            }
+        }
+
+        .header-row .fbox-sm .fbox-icon {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
+        .header-row .fbox-sm .fbox-icon i {
+            position: relative;
+            top: 1px;
+            font-size: 1.25rem;
+        }
+
+        .header-shop-search input::-moz-placeholder {
+            font-style: italic;
+            opacity: .7;
+        }
+
+        .header-shop-search input::-webkit-input-placeholder {
+            font-style: italic;
+            opacity: .7;
+        }
+    </style>
+
+</head>
+
+<body class="stretched">
+
+    <!-- Document Wrapper
+	============================================= -->
+    <div id="wrapper">
+
+        <!-- Top Bar
+		============================================= -->
+        <div id="top-bar" class="py-2 border-bottom bg-white">
+            <div class="container">
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <div class="position-absolute start-50 translate-middle-x" id="logo">
+                        <a href="index.html">
+                            <img class="logo-default" src="images/bebBus/logos/logobebBus2.png" alt="BeBbus Logo"
+                                style="height: 40px;">
+                        </a>
+                    </div>
+
+                    <div class="d-flex align-items-center ms-auto">
+
+                        <div class="hover-baby-sky">
+                            <div class="header-misc-icon">
+                                <a href="#"><i class="bi-heart fs-5"></i></a>
+                            </div>
+                        </div>
+
+                        <div class="hover-baby-sky">
+                            <div class="header-misc-icon">
+                                <a href="login.html"><i class="bi-people fs-5"></i></a>
+                            </div>
+                        </div>
+
+                        <div class="align-items-center hover-baby-sky">
+                            <div id="top-cart" class="header-misc-icon">
+                                <a href="carrito.html" id="top-cart-trigger">
+                                    <i class="uil uil-shopping-bag fs-5"></i>
+                                    <span class="top-cart-number">5</span>
+                                </a>
+                                <div class="top-cart-content">
+                                    <div class="top-cart-title">
+                                        <h4>Carrito de Compras</h4>
+                                    </div>
+                                    <div class="top-cart-items">
+                                        <div class="top-cart-item">
+                                            <div class="top-cart-item-image">
+                                                <a href="#"><img src="images/shop/small/1.jpg"></a>
+                                            </div>
+                                            <div class="top-cart-item-desc">
+                                                <div class="top-cart-item-desc-title">
+                                                    <a href="#">Polera azul con cuello redondo y botón</a>
+                                                    <span class="top-cart-item-price d-block">$19.99</span>
+                                                </div>
+                                                <div class="top-cart-item-quantity">x 2</div>
+                                            </div>
+                                        </div>
+                                        <div class="top-cart-item">
+                                            <div class="top-cart-item-image">
+                                                <a href="#"><img src="images/shop/small/6.jpg"></a>
+                                            </div>
+                                            <div class="top-cart-item-desc">
+                                                <div class="top-cart-item-desc-title">
+                                                    <a href="#">Vestido de mezclilla azul claro</a>
+                                                    <span class="top-cart-item-price d-block">$24.99</span>
+                                                </div>
+                                                <div class="top-cart-item-quantity">x 3</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="top-cart-action">
+                                        <span class="top-checkout-price">$114.95</span>
+                                        <a href="carrito.html" class="button button-3d button-small m-0">Ver Carrito</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Header
+		============================================= -->
+        <header id="header" class="bg-light">
+            <div id="header-wrap" class="border-top border-f5 bg-baby-sky">
+                <div class="container">
+                    <div class="header-row">
+
+                        <div class="primary-menu-trigger">
+                            <button class="cnvs-hamburger" type="button" title="Open Mobile Menu">
+                                <span class="cnvs-hamburger-box"><span class="cnvs-hamburger-inner"></span></span>
+                            </button>
+                        </div>
+                        <!-- Primary Navigation
+						============================================= -->
+                        <nav class="primary-menu with-arrows ms-lg-4 order-lg-first order-last">
+                            <ul class="menu-container">
+                                <li class="menu-item">
+                                    <a class="menu-link p-3 hover-baby-gold" href="coches.html">
+                                        <div>Ropa de bebé</div>
+                                    </a>
+                                </li>
+                                <li class="menu-item">
+                                    <a class="menu-link p-3 hover-baby-gold" href="index.html">
+                                        <div>Butacas</div>
+                                    </a>
+                                </li>
+                                <li class="menu-item">
+                                    <a class="menu-link p-3 hover-baby-gold" href="index.html">
+                                        <div>Cunas</div>
+                                    </a>
+                                </li>
+                                <li class="menu-item">
+                                    <a class="menu-link p-3 hover-baby-gold" href="index.html">
+                                        <div>Sillas</div>
+                                    </a>
+                                </li>
+                                <li class="menu-item">
+                                    <a class="menu-link p-3 hover-baby-gold" href="index.html">
+                                        <div>Mecedoras</div>
+                                    </a>
+                                </li>
+                                <li class="menu-item">
+                                    <a class="menu-link p-3 hover-baby-gold" href="index.html">
+                                        <div>Porteo</div>
+                                    </a>
+                                </li>
+                                <li class="menu-item">
+                                    <a class="menu-link p-3 hover-baby-gold" href="index.html">
+                                        <div>Bolsos y mochilas</div>
+                                    </a>
+                                </li>
+                                <li class="menu-item">
+                                    <a class="menu-link p-3 hover-baby-gold" href="index.html">
+                                        <div>Baño y cuidado</div>
+                                    </a>
+                                </li>
+                                <li class="menu-item">
+                                    <a class="menu-link p-3 hover-baby-gold" href="index.html">
+                                        <div>Diversion</div>
+                                    </a>
+                                </li>
+                                <li class="menu-item">
+                                    <a class="menu-link p-3 hover-baby-gold" href="index.html">
+                                        <div>Alimentacion y lactancia</div>
+                                    </a>
+                                </li>
+
+                            </ul>
+
+                        </nav>
+                        <!-- #primary-menu end -->
+                    </div>
+                </div>
+            </div>
+            <div class="header-wrap-clone"></div>
+        </header>
+        <!-- #header end -->
+
+        <!-- Content
+		============================================= -->
+
+        <section id="content">
+            <div class="content-wrap py-5">
+                <div class="container">
+
+                    <div class="row g-5">
+                        <!-- Carrito de productos -->
+                        <div class="col-xl-8">
+                            <div class="table-responsive">
+                                <table class="table cart mb-5">
+                                    <thead>
+                                        <tr class="bg-light text-uppercase fw-semibold">
+                                            <th></th>
+                                            <th></th>
+                                            <th>Producto</th>
+                                            <th>Precio</th>
+                                            <th>Cantidad</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Producto 1 -->
+                                        <tr class="cart_item">
+                                            <td class="cart-product-remove">
+                                                <a href="#" class="text-danger"><i class="fa-solid fa-trash"></i></a>
+                                            </td>
+                                            <td class="cart-product-thumbnail">
+                                                <a href="#"><img src="images/shop/thumbs/small/dress-3.jpg" width="64"
+                                                        height="64" alt="Producto"></a>
+                                            </td>
+                                            <td class="cart-product-name">
+                                                <a href="#" class="text-dark">Pink Printed Dress</a>
+                                            </td>
+                                            <td class="cart-product-price">
+                                                <span class="amount">$19.99</span>
+                                            </td>
+                                            <td class="cart-product-quantity">
+                                                <div class="quantity">
+                                                    <input type="button" value="-" class="minus">
+                                                    <input type="text" name="quantity" value="2" class="qty">
+                                                    <input type="button" value="+" class="plus">
+                                                </div>
+                                            </td>
+                                            <td class="cart-product-subtotal">
+                                                <span class="amount">$39.98</span>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Producto 2 -->
+                                        <tr class="cart_item">
+                                            <td class="cart-product-remove">
+                                                <a href="#" class="text-danger"><i class="fa-solid fa-trash"></i></a>
+                                            </td>
+                                            <td class="cart-product-thumbnail">
+                                                <a href="#"><img src="images/shop/thumbs/small/shoes-2.jpg" width="64"
+                                                        height="64" alt="Producto"></a>
+                                            </td>
+                                            <td class="cart-product-name">
+                                                <a href="#" class="text-dark">Checked Canvas Shoes</a>
+                                            </td>
+                                            <td class="cart-product-price">
+                                                <span class="amount">$24.99</span>
+                                            </td>
+                                            <td class="cart-product-quantity">
+                                                <div class="quantity">
+                                                    <input type="button" value="-" class="minus">
+                                                    <input type="text" name="quantity" value="1" class="qty">
+                                                    <input type="button" value="+" class="plus">
+                                                </div>
+                                            </td>
+                                            <td class="cart-product-subtotal">
+                                                <span class="amount">$24.99</span>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Producto 3 -->
+                                        <tr class="cart_item">
+                                            <td class="cart-product-remove">
+                                                <a href="#" class="text-danger"><i class="fa-solid fa-trash"></i></a>
+                                            </td>
+                                            <td class="cart-product-thumbnail">
+                                                <a href="#"><img src="images/shop/thumbs/small/tshirt-2.jpg" width="64"
+                                                        height="64" alt="Producto"></a>
+                                            </td>
+                                            <td class="cart-product-name">
+                                                <a href="#" class="text-dark">Blue Men Tshirt</a>
+                                            </td>
+                                            <td class="cart-product-price">
+                                                <span class="amount">$13.99</span>
+                                            </td>
+                                            <td class="cart-product-quantity">
+                                                <div class="quantity">
+                                                    <input type="button" value="-" class="minus">
+                                                    <input type="text" name="quantity" value="3" class="qty">
+                                                    <input type="button" value="+" class="plus">
+                                                </div>
+                                            </td>
+                                            <td class="cart-product-subtotal">
+                                                <span class="amount">$41.97</span>
+                                            </td>
+                                        </tr>
+
+                                        <!-- Cupones y actualización -->
+                                        <tr>
+                                            <td colspan="6">
+                                                <div class="row align-items-center gy-3">
+                                                    <div class="col-md-8">
+                                                        <input type="text" class="form-control"
+                                                            placeholder="Código de cupón...">
+                                                    </div>
+                                                    <div class="col-md-4 text-end">
+                                                        <a href="#"
+                                                            class="button button-small button-black button-3d m-0">Aplicar
+                                                            Cupón</a>
+                                                    </div>
+                                                    <div class="col-12 text-end">
+                                                        <a href="#"
+                                                            class="button button-small button-dark button-3d">Actualizar
+                                                            Carrito</a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Totales -->
+                        <div class="col-xl-4">
+                            <div class="bg-light rounded p-4">
+                                <h4 class="mb-4">Totales del Carrito</h4>
+                                <table class="table mb-4">
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Subtotal</strong></td>
+                                            <td class="text-end">$106.94</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Envío</strong></td>
+                                            <td class="text-end">Gratis</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <!-- Toggle calcular envío -->
+                                <div class="toggle">
+                                    <div class="toggle-header flex-row-reverse bg-white px-3 py-2 rounded">
+                                        <div class="toggle-icon">
+                                            <i class="toggle-closed fa-solid fa-chevron-down"></i>
+                                            <i class="toggle-open fa-solid fa-chevron-up"></i>
+                                        </div>
+                                        <div class="toggle-title">
+                                            <small class="text-dark">Calcular Envío</small>
+                                        </div>
+                                    </div>
+                                    <div class="toggle-content toggle-content-padding py-3">
+                                        <form class="row">
+                                            <div class="col-12 mb-3">
+                                                <select class="form-select">
+                                                    <option>Santa Cruz</option>
+                                                    <option>La Paz</option>
+                                                    <option>Cochabamba</option>
+                                                    <option>Oruro</option>
+                                                    <option>Potosí</option>
+                                                    <option>Tarija</option>
+                                                    <option>Chuquisaca</option>
+                                                    <option>Beni</option>
+                                                    <option>Pando</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-6 mb-3">
+                                                <input type="text" class="form-control" placeholder="Provincia">
+                                            </div>
+                                            <div class="col-6 mb-3">
+                                                <input type="text" class="form-control" placeholder="Código Postal">
+                                            </div>
+                                            <div class="col-12">
+                                                <button
+                                                    class="button button-mini button-dark button-3d w-100">Actualizar
+                                                    Totales</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <!-- Total final -->
+                                <div class="d-flex justify-content-between mt-4 border-top pt-3">
+                                    <h5 class="mb-0">Total</h5>
+                                    <span class="amount color fw-bold fs-5">$106.94</span>
+                                </div>
+
+                                <!-- Botón de pago -->
+                                <a href="shop.html"
+                                    class="button button-3d button-black w-100 mt-4 text-center">Proceder al Pago</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- #content end -->
+        <!-- Content
+		============================================= -->
+
+        <!-- Footer
+		============================================= -->
+        <footer id="footer" class="dark">
+            <div class="container">
+
+                <div class="footer-widgets-wrap">
+
+                    <div class="row col-mb-50">
+                        <div class="col-md-6 col-lg-4">
+                            <div class="widget">
+                                <img src="images/bebBus/logos/logobebBus2.png" alt="BabyShop Logo" class="footer-logo">
+
+                                <p>Nos especializamos en ofrecer <strong>ropa delicada</strong>, <strong>accesorios
+                                        seguros</strong> y <strong>productos de calidad</strong> para los más pequeños.
+                                    Calidad, ternura y confianza en cada detalle.</p>
+
+                                <div
+                                    style="background: url('images/world-map.png') no-repeat center center; background-size: 100%;">
+                                    <address>
+                                        <strong>Tienda Central:</strong><br>
+                                        Calle Loa #465<br>
+                                        Sucre, Bolivia<br>
+                                    </address>
+                                    <abbr title="Teléfono"><strong>Tel:</strong></abbr> +591 72812345<br>
+                                    <abbr title="Correo"><strong>Email:</strong></abbr> contacto@babyshop.com
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4">
+                            <div class="widget">
+                                <h4>Síguenos en redes sociales</h4>
+                                <p class="mb-3">Entérate de nuestras novedades, ofertas y nuevos productos. ¡Estamos
+                                    para ti y tu bebé!</p>
+                                <div class="d-flex flex-wrap gap-2">
+                                    <a href="#" class="social-icon si-small rounded-circle text-white bg-facebook">
+                                        <i class="fa-brands fa-facebook-f"></i>
+                                        <i class="fa-brands fa-facebook-f"></i>
+                                    </a>
+                                    <a href="#" class="social-icon si-small rounded-circle text-white bg-instagram">
+                                        <i class="fa-brands fa-instagram"></i>
+                                        <i class="fa-brands fa-instagram"></i>
+                                    </a>
+                                    <a href="#" class="social-icon si-small rounded-circle text-white bg-whatsapp">
+                                        <i class="fa-brands fa-whatsapp"></i>
+                                        <i class="fa-brands fa-whatsapp"></i>
+                                    </a>
+                                    <a href="#" class="social-icon si-small rounded-circle text-white bg-tiktok">
+                                        <i class="fa-brands fa-tiktok"></i>
+                                        <i class="fa-brands fa-tiktok"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-lg-4">
+                            <div class="widget">
+                                <h4>Ubicación de la tienda</h4>
+                                <div class="rounded overflow-hidden" style="height: 250px;">
+                                    <iframe
+                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4080.820562133638!2d-65.2653278527191!3d-19.044194565444474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x93fbcfa76cd5ee37%3A0x21b857bcc8aa0623!2sBEBBUS%20SUCRE!5e1!3m2!1ses-419!2sbo!4v1749940828349!5m2!1ses-419!2sbo"
+                                        width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                                        referrerpolicy="no-referrer-when-downgrade">
+                                    </iframe>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div><!-- .footer-widgets-wrap end -->
+            </div>
+
+            <!-- Copyright -->
+            <div id="copyrights" class="bg-dark border-top border-secondary py-3">
+                <div class="container">
+                    <div class="row justify-content-between align-items-center">
+
+                        <div class="col-12 col-lg-auto text-center text-lg-start mb-3 mb-lg-0">
+                            <p class="mb-0 text-white small">
+                                © 2025
+                                <a href="https://tu-pagina-web.com" target="_blank" rel="noopener"
+                                    class="text-white fw-bold text-decoration-none hover-baby-sky">
+                                    METSIS
+                                </a>. Todos los derechos reservados.
+                            </p>
+                        </div>
+
+                        <div class="col-12 col-lg-auto text-center text-lg-end mb-3 mb-lg-0">
+                            <nav class="copyrights-menu copyright-links small">
+                                <a href="#" class="text-white px-2 hover-baby-gold">Inicio</a>
+                                <a href="#" class="text-white px-2 hover-baby-gold">Catálogo</a>
+                                <a href="#" class="text-white px-2 hover-baby-gold">Ofertas</a>
+                                <a href="#" class="text-white px-2 hover-baby-gold">Nosotros</a>
+                                <a href="#" class="text-white px-2 hover-baby-gold">Contacto</a>
+                            </nav>
+                        </div>
+
+                        <div class="col-12 col-lg-auto text-center text-lg-end">
+                            <a href="https://tu-pagina-web.com" target="_blank" rel="noopener" class="d-inline-block">
+                                <img src="images/bebBus/logos/logoMetsis.png" alt="Logo METSIS" class="img-fluid"
+                                    style="height: 40px;">
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </footer>
+
+        <!-- #footer end -->
+
+    </div><!-- #wrapper end -->
+
+    <!-- Go To Top
+	============================================= -->
+    <div id="gotoTop" class="uil uil-angle-up"></div>
+
+    <!-- JavaScripts
+	============================================= -->
+    <script src="js/plugins.min.js"></script>
+    <script src="js/functions.bundle.js"></script>
+
+</body>
+
+</html>

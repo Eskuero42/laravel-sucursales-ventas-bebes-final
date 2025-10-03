@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+
+<head>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="author" content="SemiColonWeb">
+    <meta name="description"
+        content="Get Canvas to build powerful websites easily with the Highly Customizable &amp; Best Selling Bootstrap Template, today.">
+
+    <!-- Font Imports -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital@0;1&display=swap"
+        rel="stylesheet">
+
+    <!-- Core Style -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Font Icons -->
+    <link rel="stylesheet" href="css/font-icons.css">
+
+    <!-- Plugins/Components CSS -->
+    <link rel="stylesheet" href="css/swiper.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/custom.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Document Title
+	============================================= -->
+
+    <style>
+        @media (min-width: 992px) {
+            .top-links-item {
+                border-left: 0;
+            }
+
+            .header-misc-icon>a {
+                width: 1.5rem;
+                height: 1.5rem;
+                font-size: 1.5rem;
+                line-height: 1.5rem;
+            }
+        }
+
+        .header-row .fbox-sm .fbox-icon {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
+        .header-row .fbox-sm .fbox-icon i {
+            position: relative;
+            top: 1px;
+            font-size: 1.25rem;
+        }
+
+        .header-shop-search input::-moz-placeholder {
+            font-style: italic;
+            opacity: .7;
+        }
+
+        .header-shop-search input::-webkit-input-placeholder {
+            font-style: italic;
+            opacity: .7;
+        }
+    </style>
+    <style>
+        #product-color-dots .owl-dot {
+            display: inline-block;
+            background-color: transparent;
+            width: 20px;
+            height: 20px;
+            margin: 0 2px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid #FFF;
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0);
+            transform: scale(1);
+            -webkit-transition: box-shadow .2s ease, transform .2s ease;
+            -o-transition: box-shadow .2s ease, transform .2s ease;
+            transition: box-shadow .2s ease, transform .2s ease;
+        }
+
+        #product-color-dots .owl-dot.active {
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3);
+            transform: scale(1.2);
+        }
+    </style>
+
+</head>
+
+<body class="stretched">
+
+    <!-- Document Wrapper
+	============================================= -->
+    <div id="wrapper">
+
+        <!-- Top Bar
+		============================================= -->
+        <div id="top-bar" class="py-2 border-bottom bg-white">
+			<div class="container">
+				<div class="d-flex justify-content-between align-items-center">
+
+					<div class="position-absolute start-50 translate-middle-x" id="logo">
+						<a href="index.html">
+							<img class="logo-default" src="images/bebBus/logos/logobebBus2.png" alt="BeBbus Logo"
+								style="height: 40px;">
+						</a>
+					</div>
+
+					<div class="d-flex align-items-center ms-auto">
+
+						<div class="hover-baby-sky">
+							<div class="header-misc-icon">
+								<a href="#"><i class="bi-heart fs-5"></i></a>
+							</div>
+						</div>
+
+						<div class="hover-baby-sky">
+							<div class="header-misc-icon">
+								<a href="login.html"><i class="bi-people fs-5"></i></a>
+							</div>
+						</div>
+
+						<div class="align-items-center hover-baby-sky">
+							<div id="top-cart" class="header-misc-icon">
+								<a href="carrito.html" id="top-cart-trigger">
+									<i class="uil uil-shopping-bag fs-5"></i>
+									<span class="top-cart-number">5</span>
+								</a>
+								<div class="top-cart-content">
+									<div class="top-cart-title">
+										<h4>Carrito de Compras</h4>
+									</div>
+									<div class="top-cart-items">
+										<div class="top-cart-item">
+											<div class="top-cart-item-image">
+												<a href="#"><img src="images/shop/small/1.jpg"></a>
+											</div>
+											<div class="top-cart-item-desc">
+												<div class="top-cart-item-desc-title">
+													<a href="#">Polera azul con cuello redondo y botón</a>
+													<span class="top-cart-item-price d-block">$19.99</span>
+												</div>
+												<div class="top-cart-item-quantity">x 2</div>
+											</div>
+										</div>
+										<div class="top-cart-item">
+											<div class="top-cart-item-image">
+												<a href="#"><img src="images/shop/small/6.jpg"></a>
+											</div>
+											<div class="top-cart-item-desc">
+												<div class="top-cart-item-desc-title">
+													<a href="#">Vestido de mezclilla azul claro</a>
+													<span class="top-cart-item-price d-block">$24.99</span>
+												</div>
+												<div class="top-cart-item-quantity">x 3</div>
+											</div>
+										</div>
+									</div>
+									<div class="top-cart-action">
+										<span class="top-checkout-price">$114.95</span>
+										<a href="carrito.html" class="button button-3d button-small m-0">Ver Carrito</a>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+        <!-- Header
+		============================================= -->
+        <header id="header" class="bg-light">
+            <div id="header-wrap" class="border-top border-f5 bg-baby-sky">
+                <div class="container">
+                    <div class="header-row">
+
+                        <div class="primary-menu-trigger">
+                            <button class="cnvs-hamburger" type="button" title="Open Mobile Menu">
+                                <span class="cnvs-hamburger-box"><span class="cnvs-hamburger-inner"></span></span>
+                            </button>
+                        </div>
+                        <!-- Primary Navigation
+						============================================= -->
+                        <nav class="primary-menu with-arrows ms-lg-4 order-lg-first order-last">
+
+							<ul class="menu-container">
+								<li class="menu-item">
+									<a class="menu-link p-3 hover-baby-gold" href="coches.html">
+										<div>Ropa de bebé</div>
+									</a>
+								</li>
+								<li class="menu-item">
+									<a class="menu-link p-3 hover-baby-gold" href="index.html">
+										<div>Butacas</div>
+									</a>
+								</li>
+								<li class="menu-item">
+									<a class="menu-link p-3 hover-baby-gold" href="index.html">
+										<div>Cunas</div>
+									</a>
+								</li>
+								<li class="menu-item">
+									<a class="menu-link p-3 hover-baby-gold" href="index.html">
+										<div>Sillas</div>
+									</a>
+								</li>
+								<li class="menu-item">
+									<a class="menu-link p-3 hover-baby-gold" href="index.html">
+										<div>Mecedoras</div>
+									</a>
+								</li>
+								<li class="menu-item">
+									<a class="menu-link p-3 hover-baby-gold" href="index.html">
+										<div>Porteo</div>
+									</a>
+								</li>
+								<li class="menu-item">
+									<a class="menu-link p-3 hover-baby-gold" href="index.html">
+										<div>Bolsos y mochilas</div>
+									</a>
+								</li>
+								<li class="menu-item">
+									<a class="menu-link p-3 hover-baby-gold" href="index.html">
+										<div>Baño y cuidado</div>
+									</a>
+								</li>
+								<li class="menu-item">
+									<a class="menu-link p-3 hover-baby-gold" href="index.html">
+										<div>Diversion</div>
+									</a>
+								</li>
+								<li class="menu-item">
+									<a class="menu-link p-3 hover-baby-gold" href="index.html">
+										<div>Alimentacion y lactancia</div>
+									</a>
+								</li>
+
+							</ul>
+
+						</nav>
+                        <!-- #primary-menu end -->
+                    </div>
+                </div>
+            </div>
+            <div class="header-wrap-clone"></div>
+        </header>
+        <!-- #header end -->
+
+        <!-- Content
+		============================================= -->
+        <section id="content">
+            <div class="content-wrap">
+                <div class="container">
+
+                    <div class="row gx-5 col-mb-80">
+                        <!-- Post Content
+						============================================= -->
+                        <main class="postcontent col-lg-8">
+
+                            <!-- Shop
+							============================================= -->
+                            <div id="shop" class="shop row gutter-30">
+
+                                <div class="product col-sm-6 col-12">
+                                    <div class="grid-inner">
+                                        <div class="product-image">
+                                            <a href="#">
+                                                <img src="images/bebBus/productoRopa/producto1.png"
+                                                    alt="Checked Short Dress"
+                                                    style="width: 100%; height: 500px; object-fit: cover; object-position: center;">
+                                            </a>
+                                            <div class="bg-overlay">
+                                                <div class="bg-overlay-bg bg-transparent"></div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="product col-sm-6 col-12">
+                                    <div class="grid-inner">
+                                        <div class="product-image">
+                                            <a href="#">
+                                                <img src="images/bebBus/productoRopa/producto2.png"
+                                                    alt="Checked Short Dress"
+                                                    style="width: 100%; height: 500px; object-fit: cover; object-position: center;">
+                                            </a>
+                                            <div class="bg-overlay">
+                                                <div class="bg-overlay-bg bg-transparent"></div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="product col-sm-6 col-12">
+                                    <div class="grid-inner">
+                                        <div class="product-image">
+                                            <a href="#">
+                                                <img src="images/bebBus/productoRopa/producto3.png"
+                                                    alt="Checked Short Dress"
+                                                    style="width: 100%; height: 500px; object-fit: cover; object-position: center;">
+                                            </a>
+                                            <div class="bg-overlay">
+                                                <div class="bg-overlay-bg bg-transparent"></div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="product col-sm-6 col-12">
+                                    <div class="grid-inner">
+                                        <div class="product-image">
+                                            <a href="#">
+                                                <img src="images/bebBus/productoRopa/producto4.png"
+                                                    alt="Checked Short Dress"
+                                                    style="width: 100%; height: 500px; object-fit: cover; object-position: center;">
+                                            </a>
+                                            <div class="bg-overlay">
+                                                <div class="bg-overlay-bg bg-transparent"></div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="product col-sm-6 col-12">
+                                    <div class="grid-inner">
+                                        <div class="product-image">
+                                            <a href="#">
+                                                <img src="images/bebBus/productoRopa/producto5.png"
+                                                    alt="Checked Short Dress"
+                                                    style="width: 100%; height: 500px; object-fit: cover; object-position: center;">
+                                            </a>
+                                            <div class="bg-overlay">
+                                                <div class="bg-overlay-bg bg-transparent"></div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="product col-sm-6 col-12">
+                                    <div class="grid-inner">
+                                        <div class="product-image">
+                                            <a href="#">
+                                                <img src="images/bebBus/productoRopa/producto6.png"
+                                                    alt="Checked Short Dress"
+                                                    style="width: 100%; height: 500px; object-fit: cover; object-position: center;">
+                                            </a>
+                                            <div class="bg-overlay">
+
+                                                <div class="bg-overlay-bg bg-transparent"></div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                            </div><!-- #shop end -->
+
+                        </main><!-- .postcontent end -->
+
+                        <!-- Sidebar
+						============================================= -->
+                        <aside class="sidebar col-lg-4">
+                            <h3 class="fw-bold mb-2">
+                                Vestido de manga con volantes de estampado de personaje
+                                de niña pequeña
+                            </h3>
+
+                            <div class="mb-3">
+                                <span class="fs-4 fw-bold text-danger">$9.09</span>
+                                <del class="text-muted ms-2">$12.99</del>
+                                <span class="badge bg-danger text-white ms-2">-30%</span>
+                            </div>
+
+                            <p class="small text-muted">
+                                o 4 pagos sin interés
+                                <strong>$2.27</strong>
+                            </p>
+
+                            <hr>
+
+                            <h5 class="fw-medium mb-3">Seleccionar Color:<span
+                                    class="product-color-value ms-1 fw-semibold"></span></h5>
+
+                            <div id="product-color-dots" class="owl-dots">
+                                <button role="radio" class="owl-dot active" data-value="Blue"
+                                    data-color="#2f3977"></button>
+                                <button role="radio" class="owl-dot" data-value="Red" data-color="#c8271d"></button>
+                                <button role="radio" class="owl-dot" data-value="Brown" data-color="#723f2e"></button>
+                                <button role="radio" class="owl-dot" data-value="Black" data-color="#4a4c4b"></button>
+                                <button role="radio" class="owl-dot" data-value="Light Brown"
+                                    data-color="#af6035"></button>
+                                <button role="radio" class="owl-dot" data-value="Deep Green"
+                                    data-color="#3d6370"></button>
+                            </div>
+
+                            <hr>
+
+                            <h4 class="mb-3">Tamaño</h4>
+
+                            <div class="row g-3">
+
+                                <div class="col-6">
+                                    <div class="form-check custom-radio">
+                                        <input id="talla-recien" class="form-check-input" type="radio" name="talla"
+                                            checked>
+                                        <label for="talla-recien" class="form-check-label">Recién nacido</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <div class="form-check custom-radio">
+                                        <input id="talla-0-3" class="form-check-input" type="radio" name="talla">
+                                        <label for="talla-0-3" class="form-check-label">0-3 meses</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <div class="form-check custom-radio">
+                                        <input id="talla-3-6" class="form-check-input" type="radio" name="talla">
+                                        <label for="talla-3-6" class="form-check-label">3-6 meses</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <div class="form-check custom-radio">
+                                        <input id="talla-6-9" class="form-check-input" type="radio" name="talla">
+                                        <label for="talla-6-9" class="form-check-label">6-9 meses</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <div class="form-check custom-radio">
+                                        <input id="talla-9-12" class="form-check-input" type="radio" name="talla">
+                                        <label for="talla-9-12" class="form-check-label">9-12 meses</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <div class="form-check custom-radio">
+                                        <input id="talla-12-18" class="form-check-input" type="radio" name="talla">
+                                        <label for="talla-12-18" class="form-check-label">12-18 meses</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <div class="form-check custom-radio">
+                                        <input id="talla-18-24" class="form-check-input" type="radio" name="talla">
+                                        <label for="talla-18-24" class="form-check-label">18-24 meses</label>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                            <button class="bg-baby-gold w-100 bg-button-baby-gold text-white fw-semibold hover-baby-gold px-4 py-2 border-0">
+                                AÑADIR A LA BOLSA
+                            </button>
+
+                            <hr>
+
+                            <div class="row col-mb-50 mb-0 gx-5">
+                                <div class="col-sm-6 col-lg-4">
+                                    <div class="feature-box fbox-center fbox-effect">
+                                        <div class="fbox-icon">
+                                            <a href="#"><i class="bi-shield-check i-alt fs-6"></i></a>
+                                        </div>
+                                        <div class="fbox-content">
+                                            <h6 class="mb-0">Material Antialérgico</h6>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6 col-lg-4">
+                                    <div class="feature-box fbox-center fbox-effect fbox-dark">
+                                        <div class="fbox-icon">
+                                            <a href="#"><i class="bi-wind i-alt fs-6"></i></a>
+                                        </div>
+                                        <div class="fbox-content">
+                                            <h6 class="mb-0">Tejido Transpirable</h6>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6 col-lg-4">
+                                    <div class="feature-box fbox-center fbox-effect fbox-light">
+                                        <div class="fbox-icon">
+                                            <a href="#"><i class="bi-droplet i-alt fs-6"></i></a>
+                                        </div>
+                                        <div class="fbox-content">
+                                            <h6 class="mb-0">Resistente a la Decoloración</h6>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6 col-lg-4">
+                                    <div class="feature-box fbox-center fbox-effect">
+                                        <div class="fbox-icon">
+                                            <a href="#"><i class="bi-feather i-alt fs-6"></i></a>
+                                        </div>
+                                        <div class="fbox-content">
+                                            <h6 class="mb-0">Sensación Suave</h6>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6 col-lg-4">
+                                    <div class="feature-box fbox-center fbox-effect fbox-dark">
+                                        <div class="fbox-icon">
+                                            <a href="#"><i class="bi-brush i-alt fs-6"></i></a>
+                                        </div>
+                                        <div class="fbox-content">
+                                            <h6 class="mb-0">Impresión Duradera</h6>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6 col-lg-4">
+                                    <div class="feature-box fbox-center fbox-effect fbox-light">
+                                        <div class="fbox-icon">
+                                            <a href="#"><i class="bi-check-circle i-alt fs-6"></i></a>
+                                        </div>
+                                        <div class="fbox-content">
+                                            <h6 class="mb-0">Producto Probado</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+
+                            <div class="accordion accordion-flush" id="accordionFlushExample">
+                                <div class="accordion-item">
+                                    <h2 class="mb-0" id="flush-headingTwo">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo"
+                                            aria-expanded="false" aria-controls="flush-collapseTwo">
+                                            Detalle del producto
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapseTwo" class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            Presentación del producto
+                                            Enterizo cómodo y juguetón para niña con estampado de conejo/sólido y
+                                            broches frontales para facilitar el vestir
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="accordion-item">
+                                    <h2 class="mb-0" id="flush-headingThree">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#flush-collapseThree"
+                                            aria-expanded="false" aria-controls="flush-collapseThree">
+                                            Entrega
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapseThree" class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            Envío gratuito
+                                            2-5 días hábiles +$35.00
+                                            Devolución fácil
+                                            Nuestra garantía: Devolución o cambio dentro de 30 dias a partir de la fecha
+                                            de entrega.
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="accordion-item">
+                                    <h2 class="mb-0" id="flush-headingFour">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#flush-collapseFour"
+                                            aria-expanded="false" aria-controls="flush-collapseFour">
+                                            Productos garantizados
+                                        </button>
+                                    </h2>
+                                    <div id="flush-collapseFour" class="accordion-collapse collapse"
+                                        aria-labelledby="flush-headingFour" data-bs-parent="#accordionFlushExample">
+                                        <div class="accordion-body">
+                                            Nuestros productos cumplen con todas las regulaciones actuales establecidas
+                                            por la Comisión de Seguridad de Productos de Consumo de EE. UU. (CPSC) en
+                                            cuanto a la seguridad del producto, incluidos los límites de sustancias
+                                            dañinas como el plomo y los ftalatos. Cada producto es probado y certificado
+                                            por laboratorios acreditados de terceros.
+                                            Cada producto infantil que ofrecemos viene con un Certificado de Producto
+                                            Infantil (CPC) válido, que confirma que el producto ha sido probado por un
+                                            laboratorio acreditado por la CPSC y cumple con todas las normas de
+                                            seguridad aplicables.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </aside>
+                        <!-- .sidebar end -->
+                    </div>
+
+                </div>
+            </div>
+        </section><!-- #content end -->
+
+        <!-- Footer
+		============================================= -->
+        <footer id="footer" class="dark">
+			<div class="container">
+
+				<div class="footer-widgets-wrap">
+
+					<div class="row col-mb-50">
+						<div class="col-md-6 col-lg-4">
+							<div class="widget">
+								<img src="images/bebBus/logos/logobebBus2.png" alt="BabyShop Logo" class="footer-logo">
+
+								<p>Nos especializamos en ofrecer <strong>ropa delicada</strong>, <strong>accesorios
+										seguros</strong> y <strong>productos de calidad</strong> para los más pequeños.
+									Calidad, ternura y confianza en cada detalle.</p>
+
+								<div
+									style="background: url('images/world-map.png') no-repeat center center; background-size: 100%;">
+									<address>
+										<strong>Tienda Central:</strong><br>
+										Calle Loa #465<br>
+										Sucre, Bolivia<br>
+									</address>
+									<abbr title="Teléfono"><strong>Tel:</strong></abbr> +591 72812345<br>
+									<abbr title="Correo"><strong>Email:</strong></abbr> contacto@babyshop.com
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-6 col-lg-4">
+							<div class="widget">
+								<h4>Síguenos en redes sociales</h4>
+								<p class="mb-3">Entérate de nuestras novedades, ofertas y nuevos productos. ¡Estamos
+									para ti y tu bebé!</p>
+								<div class="d-flex flex-wrap gap-2">
+									<a href="#" class="social-icon si-small rounded-circle text-white bg-facebook">
+										<i class="fa-brands fa-facebook-f"></i>
+										<i class="fa-brands fa-facebook-f"></i>
+									</a>
+									<a href="#" class="social-icon si-small rounded-circle text-white bg-instagram">
+										<i class="fa-brands fa-instagram"></i>
+										<i class="fa-brands fa-instagram"></i>
+									</a>
+									<a href="#" class="social-icon si-small rounded-circle text-white bg-whatsapp">
+										<i class="fa-brands fa-whatsapp"></i>
+										<i class="fa-brands fa-whatsapp"></i>
+									</a>
+									<a href="#" class="social-icon si-small rounded-circle text-white bg-tiktok">
+										<i class="fa-brands fa-tiktok"></i>
+										<i class="fa-brands fa-tiktok"></i>
+									</a>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-6 col-lg-4">
+							<div class="widget">
+								<h4>Ubicación de la tienda</h4>
+								<div class="rounded overflow-hidden" style="height: 250px;">
+									<iframe
+										src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4080.820562133638!2d-65.2653278527191!3d-19.044194565444474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x93fbcfa76cd5ee37%3A0x21b857bcc8aa0623!2sBEBBUS%20SUCRE!5e1!3m2!1ses-419!2sbo!4v1749940828349!5m2!1ses-419!2sbo"
+										width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+										referrerpolicy="no-referrer-when-downgrade">
+									</iframe>
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+
+				</div><!-- .footer-widgets-wrap end -->
+			</div>
+
+			<!-- Copyright -->
+			<div id="copyrights" class="bg-dark border-top border-secondary py-3">
+				<div class="container">
+					<div class="row justify-content-between align-items-center">
+
+						<div class="col-12 col-lg-auto text-center text-lg-start mb-3 mb-lg-0">
+							<p class="mb-0 text-white small">
+								© 2025
+								<a href="https://tu-pagina-web.com" target="_blank" rel="noopener"
+									class="text-white fw-bold text-decoration-none hover-baby-sky">
+									METSIS
+								</a>. Todos los derechos reservados.
+							</p>
+						</div>
+
+						<div class="col-12 col-lg-auto text-center text-lg-end mb-3 mb-lg-0">
+							<nav class="copyrights-menu copyright-links small">
+								<a href="#" class="text-white px-2 hover-baby-gold">Inicio</a>
+								<a href="#" class="text-white px-2 hover-baby-gold">Catálogo</a>
+								<a href="#" class="text-white px-2 hover-baby-gold">Ofertas</a>
+								<a href="#" class="text-white px-2 hover-baby-gold">Nosotros</a>
+								<a href="#" class="text-white px-2 hover-baby-gold">Contacto</a>
+							</nav>
+						</div>
+
+						<div class="col-12 col-lg-auto text-center text-lg-end">
+							<a href="https://tu-pagina-web.com" target="_blank" rel="noopener" class="d-inline-block">
+								<img src="images/bebBus/logos/logoMetsis.png" alt="Logo METSIS" class="img-fluid"
+									style="height: 40px;">
+							</a>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+		</footer>
+
+        <!-- #footer end -->
+
+    </div><!-- #wrapper end -->
+
+    <!-- Go To Top
+	============================================= -->
+    <div id="gotoTop" class="uil uil-angle-up"></div>
+
+    <!-- JavaScripts
+	============================================= -->
+    <script src="js/plugins.min.js"></script>
+    <script src="js/functions.bundle.js"></script>
+
+    <script>
+        jQuery(window).on('load', function () {
+            let colorValue = jQuery('.product-color-value'),
+                productDots = jQuery('#product-color-dots'),
+                currentOwl = jQuery('.owl-dot.active').attr("data-value");
+
+            colorValue.text(currentOwl);
+
+            let owl = jQuery('#oc-shop').owlCarousel({
+                items: 1,
+                dotsContainer: '#product-color-dots'
+            });
+
+            productDots.find('button').each(function () {
+                let dot = jQuery(this),
+                    color = dot.attr('data-color');
+
+                dot.css({ 'background-color': color });
+            });
+
+            owl.on('changed.owl.carousel', function (event) {
+                currentOwl = jQuery('.owl-dot.active').attr("data-value");
+                colorValue.text(currentOwl);
+            });
+        });
+    </script>
+</body>
+
+</html>
