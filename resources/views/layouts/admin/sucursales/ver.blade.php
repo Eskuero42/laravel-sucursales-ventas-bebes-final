@@ -12,89 +12,6 @@
                     Asociar categorías
                 </button>
 
-                <div class="modal fade bs-example-modal-xl" tabindex="-1" role="dialog"
-                    aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-xl">
-                        <div class="modal-content">
-                            <form id="asociarForm">
-                                @csrf
-                                <input type="hidden" name="sucursal_id" value="{{ $sucursal->id }}">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="myExtraLargeModalLabel">Asociar categorías a la sucursal
-                                    </h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <div class="accordion" id="accordionCategorias">
-                                        @foreach ($categoriasPadre as $categoria)
-                                            <div class="col-md-6">
-                                                <div class="accordion-item">
-                                                    <h2 class="accordion-header" id="heading{{ $categoria->id }}">
-                                                        <div class="d-flex align-items-center">
-                                                            <input class="form-check-input me-2" type="checkbox"
-                                                                name="categorias[]" value="{{ $categoria->id }}"
-                                                                {{ in_array($categoria->id, $categoriasAsociadas) ? 'checked' : '' }}>
-                                                            <label class="accordion-button collapsed mb-0" type="button"
-                                                                data-bs-toggle="collapse"
-                                                                data-bs-target="#collapse{{ $categoria->id }}"
-                                                                aria-expanded="false"
-                                                                aria-controls="collapse{{ $categoria->id }}">
-                                                                {{ $categoria->nombre }}
-                                                            </label>
-                                                        </div>
-                                                    </h2>
-                                                    <div id="collapse{{ $categoria->id }}"
-                                                        class="accordion-collapse collapse"
-                                                        aria-labelledby="heading{{ $categoria->id }}"
-                                                        data-bs-parent="#accordionCategorias">
-                                                        <div class="accordion-body ps-5">
-                                                            @foreach ($categoria->categorias_hijosRecursive as $subcategoria)
-                                                                <div class="form-check ms-2" style="margin-left: 20px;">
-                                                                    <input class="form-check-input" type="checkbox"
-                                                                        name="categorias[]" value="{{ $subcategoria->id }}"
-                                                                        {{ in_array($subcategoria->id, $categoriasAsociadas) ? 'checked' : '' }}>
-                                                                    <label
-                                                                        class="form-check-label">{{ $subcategoria->nombre }}</label>
-                                                                </div>
-                                                                @foreach ($subcategoria->categorias_hijosRecursive as $subsubcategoria)
-                                                                    <div class="form-check ms-3" style="margin-left: 40px;">
-                                                                        <input class="form-check-input" type="checkbox"
-                                                                            name="categorias[]"
-                                                                            value="{{ $subsubcategoria->id }}"
-                                                                            {{ in_array($subsubcategoria->id, $categoriasAsociadas) ? 'checked' : '' }}>
-                                                                        <label
-                                                                            class="form-check-label">{{ $subsubcategoria->nombre }}</label>
-                                                                    </div>
-                                                                    @foreach ($subsubcategoria->categorias_hijosRecursive as $subsubsubcategoria)
-                                                                        <div class="form-check ms-4"
-                                                                            style="margin-left: 60px;">
-                                                                            <input class="form-check-input" type="checkbox"
-                                                                                name="categorias[]"
-                                                                                value="{{ $subsubsubcategoria->id }}"
-                                                                                {{ in_array($subsubsubcategoria->id, $categoriasAsociadas) ? 'checked' : '' }}>
-                                                                            <label
-                                                                                class="form-check-label">{{ $subsubsubcategoria->nombre }}</label>
-                                                                        </div>
-                                                                    @endforeach
-                                                                @endforeach
-                                                            @endforeach
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
-                                    <button type="submit" class="btn btn-primary">Guardar cambios</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
                 &nbsp;
                 <button type="button" class="btn btn-success" data-bs-toggle="modal"
                     data-bs-target="#modalRegistrarCategoria">
@@ -106,12 +23,12 @@
 
     <div class="row">
         @foreach ($sucursal->sucursal_categorias as $s_c)
-            @if ($s_c->categoria)
+            @if ($s_c->categoria && !$s_c->categoria->categoria_id)
                 <div class="col-xl-4 col-md-6">
                     <div class="card card-height-100">
                         <div class="card-header align-items-center d-flex">
                             <h4 class="card-title mb-0 flex-grow-1">
-                                {{ $s_c->categoria?->nombre ?? 'Categoría sin nombre' }}
+                                {{ $s_c->categoria->nombre ?? 'Categoría sin nombre' }}
                             </h4>
                             <div class="flex-shrink-0">
                                 <button type="button" class="btn btn-warning btn-icon waves-effect waves-light editBtn"
@@ -121,7 +38,6 @@
                                 </button>
                             </div>
                         </div>
-
                         <div class="card-body text-center">
                             <div class="bg-info-subtle rounded p-2 mb-3">
                                 <img src="{{ asset($s_c->categoria->imagen) }}" alt="{{ $s_c->categoria->nombre }}"
@@ -136,7 +52,6 @@
                                 class="btn btn-info waves-effect waves-light" title="Ir a detalles del producto">
                                 <i data-feather="eye"></i> Todos los productos
                             </a>
-
                             <a href="#" class="btn btn-primary btn-icon waves-effect waves-light"
                                 title="Ir a detalles del producto">
                                 <i data-feather="eye"></i>
@@ -147,7 +62,6 @@
             @endif
         @endforeach
     </div>
-
 
     <!--modal de registrar-->
     <div class="modal fade" id="modalRegistrarCategoria" tabindex="-1" aria-labelledby="modalRegistrarCategoriaLabel"
@@ -180,13 +94,13 @@
                                 <label class="form-label">Tipo</label>
                                 <div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="tipo"
-                                            id="tipo_detallado" value="detallado" required>
+                                        <input class="form-check-input" type="radio" name="tipo" id="tipo_detallado"
+                                            value="detallado" required>
                                         <label class="form-check-label" for="tipo_detallado">Ropa</label>
                                     </div>
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="tipo"
-                                            id="tipo_no_detallado" value="no detallado">
+                                        <input class="form-check-input" type="radio" name="tipo" id="tipo_no_detallado"
+                                            value="no detallado">
                                         <label class="form-check-label" for="tipo_no_detallado">Otros</label>
                                     </div>
                                 </div>
@@ -195,8 +109,8 @@
                             <!-- Imagen -->
                             <div class="col-lg-12">
                                 <label for="imagen" class="form-label">Imagen</label>
-                                <input class="form-control" type="file" id="imagen" accept="image/*"
-                                    name="imagen" required>
+                                <input class="form-control" type="file" id="imagen" accept="image/*" name="imagen"
+                                    required>
                             </div>
 
                             <!-- Descripción -->
@@ -292,6 +206,88 @@
                         </div>
                     </form>
                 </div> <!-- modal-body -->
+            </div>
+        </div>
+    </div>
+
+    <!--modal de asociar-->
+    <div class="modal fade bs-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <form id="asociarForm">
+                    @csrf
+                    <input type="hidden" name="sucursal_id" value="{{ $sucursal->id }}">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myExtraLargeModalLabel">Asociar categorías a la sucursal
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="accordion" id="accordionCategorias">
+                            @foreach ($categoriasPadre as $categoria)
+                                <div class="col-md-6">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="heading{{ $categoria->id }}">
+                                            <div class="d-flex align-items-center">
+                                                <input class="form-check-input me-2" type="checkbox" name="categorias[]"
+                                                    value="{{ $categoria->id }}"
+                                                    {{ in_array($categoria->id, $categoriasAsociadas) ? 'checked' : '' }}>
+                                                <label class="accordion-button collapsed mb-0" type="button"
+                                                    data-bs-toggle="collapse"
+                                                    data-bs-target="#collapse{{ $categoria->id }}" aria-expanded="false"
+                                                    aria-controls="collapse{{ $categoria->id }}">
+                                                    {{ $categoria->nombre }}
+                                                </label>
+                                            </div>
+                                        </h2>
+                                        <div id="collapse{{ $categoria->id }}" class="accordion-collapse collapse"
+                                            aria-labelledby="heading{{ $categoria->id }}"
+                                            data-bs-parent="#accordionCategorias">
+                                            <div class="accordion-body ps-5">
+                                                @foreach ($categoria->categorias_hijosRecursive as $subcategoria)
+                                                    <div class="form-check ms-2" style="margin-left: 20px;">
+                                                        <input class="form-check-input" type="checkbox"
+                                                            name="categorias[]" value="{{ $subcategoria->id }}"
+                                                            data-padre-id="{{ $categoria->id }}"
+                                                            {{ in_array($subcategoria->id, $categoriasAsociadas) ? 'checked' : '' }}>
+                                                        <label
+                                                            class="form-check-label">{{ $subcategoria->nombre }}</label>
+                                                    </div>
+                                                    @foreach ($subcategoria->categorias_hijosRecursive as $subsubcategoria)
+                                                        <div class="form-check ms-3" style="margin-left: 40px;">
+                                                            <input class="form-check-input" type="checkbox"
+                                                                name="categorias[]" value="{{ $subsubcategoria->id }}"
+                                                                data-padre-id="{{ $subcategoria->id }}"
+                                                                {{ in_array($subsubcategoria->id, $categoriasAsociadas) ? 'checked' : '' }}>
+                                                            <label
+                                                                class="form-check-label">{{ $subsubcategoria->nombre }}</label>
+                                                        </div>
+                                                        @foreach ($subsubcategoria->categorias_hijosRecursive as $subsubsubcategoria)
+                                                            <div class="form-check ms-4" style="margin-left: 60px;">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                    name="categorias[]"
+                                                                    value="{{ $subsubsubcategoria->id }}"
+                                                                    data-padre-id="{{ $subsubcategoria->id }}"
+                                                                    {{ in_array($subsubsubcategoria->id, $categoriasAsociadas) ? 'checked' : '' }}>
+                                                                <label
+                                                                    class="form-check-label">{{ $subsubsubcategoria->nombre }}</label>
+                                                            </div>
+                                                        @endforeach
+                                                    @endforeach
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -436,6 +432,28 @@
                         $('.btn-primary').prop('disabled', false);
                     }
                 });
+            });
+
+            // Escucha el cambio en cualquier checkbox de subcategoría
+            $(document).on('change', 'input[name="categorias[]"][data-padre-id]', function() {
+                const isChecked = $(this).is(':checked');
+                const padreId = $(this).data('padre-id');
+
+                // Si se marca una subcategoría, marcar también a su padre
+                if (isChecked) {
+                    $(`input[name="categorias[]"][value="${padreId}"]`).prop('checked', true);
+                }
+            });
+
+            // Escucha el cambio en cualquier checkbox de categoría padre
+            $(document).on('change', 'input[name="categorias[]"]:not([data-padre-id])', function() {
+                const isChecked = $(this).is(':checked');
+                const padreId = $(this).val();
+
+                // Si se desmarca un padre, desmarcar todas sus subcategorías
+                if (!isChecked) {
+                    $(`input[name="categorias[]"][data-padre-id="${padreId}"]`).prop('checked', false);
+                }
             });
         });
     </script>

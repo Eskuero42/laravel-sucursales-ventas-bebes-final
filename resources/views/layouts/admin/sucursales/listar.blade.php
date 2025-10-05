@@ -43,133 +43,142 @@
                             </div>
                         </div>
 
-                        <div class="table-responsive table-card mt-3 mb-1">
-                            <table class="table align-middle table-nowrap mb-0" id="sucursalesTable">
-                                <thead class="table-light">
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Nombre</th>
-                                        <th>Dirección</th>
-                                        <th>Ubicación</th>
-                                        <th>Horarios</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="list form-check-all">
-                                    @if ($sucursales->isNotEmpty())
-                                        @foreach ($sucursales as $n => $sucursal)
-                                            <tr>
-                                                <td>{{ $n + 1 }}</td>
-                                                <td>
-                                                    <div class="fw-semibold text-primary">{{ $sucursal->nombre }}</div>
-                                                    <div class="text-muted small">ID: {{ $sucursal->id }}</div>
-                                                </td>
+                        <div class="row">
+                            @if ($sucursales->isNotEmpty())
+                                @foreach ($sucursales as $n => $sucursal)
+                                    <div class="col-xl-6 col-xxl-6 mb-4">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <!-- Header -->
+                                                <div class="d-flex align-items-center mb-3">
+                                                    <div class="flex-grow-1">
+                                                        <h5 class="card-title mb-1 text-primary">{{ $sucursal->nombre }}
+                                                        </h5>
+                                                        <p class="text-muted mb-0">ID: {{ $sucursal->id }}</p>
+                                                    </div>
+                                                    <span class="badge bg-primary rounded-pill">#{{ $n + 1 }}</span>
+                                                </div>
 
-                                                <td>
-                                                    <i class="ri-map-pin-2-line text-danger align-middle me-1"></i>
-                                                    {{ $sucursal->direccion }}
-                                                </td>
+                                                <!-- Dirección -->
+                                                <div class="mb-3">
+                                                    <div class="d-flex align-items-start">
+                                                        <i class="ri-map-pin-2-line text-danger me-2 mt-1"></i>
+                                                        <div>
+                                                            <p class="mb-1 fw-medium">{{ $sucursal->direccion }}</p>
+                                                            <small class="text-muted">
+                                                                <i class="ri-map-pin-line align-middle"></i>
+                                                                {{ $sucursal->latitud }}, {{ $sucursal->longitud }}
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                </div>
 
-                                                <td style="width: 220px;">
+                                                <!-- Acciones -->
+                                                <div class="d-flex gap-2 flex-wrap">
+                                                    <a href="{{ route('admin.sucursales.ver', $sucursal->id) }}"
+                                                        class="btn btn-sm btn-primary">
+                                                        <i class="ri-eye-line align-middle me-1"></i> Ver
+                                                    </a>
+
+                                                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                                                        data-bs-target="#showModal" data-id="{{ $sucursal->id }}"
+                                                        data-nombre="{{ $sucursal->nombre }}"
+                                                        data-direccion="{{ $sucursal->direccion }}"
+                                                        data-latitud="{{ $sucursal->latitud }}"
+                                                        data-longitud="{{ $sucursal->longitud }}">
+                                                        <i class="ri-edit-line align-middle me-1"></i> Editar
+                                                    </button>
+
+                                                    <button class="btn btn-info btn-sm" data-bs-toggle="modal"
+                                                        data-bs-target="#modalHorarios"
+                                                        data-sucursal='@json($sucursal->load('horarios'))'>
+                                                        <i class="ri-time-line align-middle me-1"></i> Horarios
+                                                    </button>
+
+                                                    <button class="btn btn-sm btn-danger deleteBtn"
+                                                        data-bs-id="{{ $sucursal->id }}" data-bs-toggle="modal"
+                                                        data-bs-target="#deleteRecordModal">
+                                                        <i class="ri-delete-bin-line align-middle me-1"></i> Eliminar
+                                                    </button>
+                                                </div>
+                                                <!-- Mapa -->
+                                                <div class="mb-3 mt-3">
                                                     <div class="ratio ratio-16x9 rounded-3 overflow-hidden shadow-sm">
                                                         <iframe
                                                             src="https://www.google.com/maps?q={{ $sucursal->latitud }},{{ $sucursal->longitud }}&hl=es;z=15&output=embed"
-                                                            width="100%" height="120" style="border:0;"
+                                                            width="100%" height="140" style="border:0;"
                                                             allowfullscreen="" loading="lazy">
                                                         </iframe>
                                                     </div>
-                                                    <div class="small text-muted mt-1">
-                                                        <i class="ri-map-pin-line align-middle"></i>
-                                                        {{ $sucursal->latitud }}, {{ $sucursal->longitud }}
-                                                    </div>
-                                                </td>
+                                                </div>
 
-                                                <td>
+                                                <!-- Horarios -->
+                                                <div class="mb-4">
+                                                    <h6 class="fs-14 mb-3 border-bottom pb-2">Horarios de atención</h6>
                                                     @if ($sucursal->horarios->isNotEmpty())
-                                                        <table class="table table-sm table-borderless align-middle mb-0">
-                                                            <tbody>
+                                                        <div class="row g-0">
+                                                            <div class="col-12 col-sm-6">
+                                                                <!-- Días -->
                                                                 @foreach ($sucursal->horarios as $horario)
-                                                                    <tr>
-                                                                        <td class="text-capitalize fw-semibold">
-                                                                            {{ $horario->dia_semana }}</td>
-                                                                        @if ($horario->cerrado)
-                                                                            <td><span
-                                                                                    class="badge bg-danger-subtle text-danger">Cerrado</span>
-                                                                            </td>
-                                                                        @else
-                                                                            <td>
-                                                                                <span
-                                                                                    class="badge bg-success-subtle text-success">
-                                                                                    {{ \Carbon\Carbon::parse($horario->hora_inicio)->format('H:i') }}
-                                                                                    -
-                                                                                    {{ \Carbon\Carbon::parse($horario->hora_fin)->format('H:i') }}
-                                                                                </span>
-                                                                            </td>
-                                                                        @endif
-                                                                    </tr>
+                                                                    <div class="mb-2">
+                                                                        <span class="text-capitalize fw-semibold fs-13">
+                                                                            {{ $horario->dia_semana }}
+                                                                        </span>
+                                                                    </div>
                                                                 @endforeach
-                                                            </tbody>
-                                                        </table>
+                                                            </div>
+                                                            <div class="col-12 col-sm-6">
+                                                                <!-- Horarios -->
+                                                                @foreach ($sucursal->horarios as $horario)
+                                                                    <div class="mb-2">
+                                                                        @if ($horario->cerrado)
+                                                                            <span
+                                                                                class="badge bg-danger-subtle text-danger fs-12">Cerrado</span>
+                                                                        @else
+                                                                            <span
+                                                                                class="badge bg-success-subtle text-success fs-12">
+                                                                                {{ \Carbon\Carbon::parse($horario->hora_inicio)->format('H:i') }}
+                                                                                -
+                                                                                {{ \Carbon\Carbon::parse($horario->hora_fin)->format('H:i') }}
+                                                                            </span>
+                                                                        @endif
+                                                                    </div>
+                                                                @endforeach
+                                                            </div>
+                                                        </div>
                                                     @else
-                                                        <span class="text-muted small">Sin horarios</span>
+                                                        <span class="text-muted fs-13">Sin horarios configurados</span>
                                                     @endif
-                                                </td>
-
-                                                <td>
-                                                    <div class="d-flex gap-2">
-                                                        <a href="{{ route('admin.sucursales.ver', $sucursal->id) }}"
-                                                            class="btn btn-sm btn-primary">
-                                                            <i class="ri-eye-line align-middle"></i> Ver
-                                                        </a>
-
-                                                        <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
-                                                            data-bs-target="#showModal" data-id="{{ $sucursal->id }}"
-                                                            data-nombre="{{ $sucursal->nombre }}"
-                                                            data-direccion="{{ $sucursal->direccion }}"
-                                                            data-latitud="{{ $sucursal->latitud }}"
-                                                            data-longitud="{{ $sucursal->longitud }}">
-                                                            <i class="ri-edit-line"></i> Editar
-                                                        </button>
-
-                                                        <button class="btn btn-info btn-sm" data-bs-toggle="modal"
-                                                            data-bs-target="#modalHorarios"
-                                                            data-sucursal='@json($sucursal->load('horarios'))'>
-                                                            <i class="ri-time-line"></i> Editar horarios
-                                                        </button>
-
-                                                        <button class="btn btn-sm btn-danger deleteBtn"
-                                                            data-bs-id="{{ $sucursal->id }}" data-bs-toggle="modal"
-                                                            data-bs-target="#deleteRecordModal">
-                                                            <i class="ri-delete-bin-line align-middle"></i> Eliminar
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    @else
-                                        <tr>
-                                            <td colspan="6" class="text-center text-muted py-4">
-                                                <i class="ri-store-2-line fs-2 d-block mb-2"></i>
-                                                No hay sucursales registradas.
-                                            </td>
-                                        </tr>
-                                    @endif
-                                </tbody>
-                            </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @else
+                                <div class="col-12">
+                                    <div class="card">
+                                        <div class="card-body text-center text-muted py-5">
+                                            <i class="ri-store-2-line fs-1 d-block mb-3"></i>
+                                            <h5 class="mb-2">No hay sucursales registradas</h5>
+                                            <p class="mb-0">Comienza agregando tu primera sucursal</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                         <!--
-                                                                                                <div class="d-flex justify-content-end">
-                                                                                                    <div class="pagination-wrap hstack gap-2">
-                                                                                                        <a class="page-item pagination-prev disabled" href="javascript:void(0);">
-                                                                                                            Previous
-                                                                                                        </a>
-                                                                                                        <ul class="pagination listjs-pagination mb-0"></ul>
-                                                                                                        <a class="page-item pagination-next" href="javascript:void(0);">
-                                                                                                            Next
-                                                                                                        </a>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                                <-- end pagination -->
+                                                                                                                        <div class="d-flex justify-content-end">
+                                                                                                                            <div class="pagination-wrap hstack gap-2">
+                                                                                                                                <a class="page-item pagination-prev disabled" href="javascript:void(0);">
+                                                                                                                                    Previous
+                                                                                                                                </a>
+                                                                                                                                <ul class="pagination listjs-pagination mb-0"></ul>
+                                                                                                                                <a class="page-item pagination-next" href="javascript:void(0);">
+                                                                                                                                    Next
+                                                                                                                                </a>
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                        <-- end pagination -->
                     </div>
                 </div><!-- end card -->
             </div>
@@ -610,7 +619,6 @@
                 }
             });
 
-            // Enviar horarios
             // Enviar horarios
             $('#formHorarios').submit(function(e) {
                 e.preventDefault();

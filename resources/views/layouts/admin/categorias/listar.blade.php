@@ -65,22 +65,20 @@
     <!--modal de registrar-->
     <div class="modal fade bs-example-modal-lg" tabindex="-1" aria-labelledby="myLargeModalLabel" aria-modal="true"
         role="dialog">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header bg-soft-success justify-content-center position-relative">
-                    <h3 class="modal-title text-uppercase fw-bold text-success-emphasis text-center w-100"
-                        id="myExtraLargeModalLabel">
+        <div class="modal-dialog"><!-- Delgado como en el primer ejemplo -->
+            <div class="modal-content border-0 shadow-sm rounded-4">
+                <!-- Header -->
+                <div class="modal-header bg-soft-success">
+                    <h5 class="modal-title fw-bold text-success-emphasis" id="myExtraLargeModalLabel">
                         <i class="ri-folder-add-line me-1"></i> Registrar Nueva Categoría
-                    </h3>
-                    <button type="button" class="btn-close position-absolute end-0 top-50 translate-middle-y me-3"
-                        data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
 
-                <!-- Cuerpo del modal -->
+                <!-- Body -->
                 <div class="modal-body">
                     <form action="" id="addForm" enctype="multipart/form-data">
                         @csrf
-
                         <div class="row g-3">
                             <div class="row mb-3">
                                 <div class="col-md-8">
@@ -121,6 +119,7 @@
                                         name="imagen">
                                 </div>
                             </div>
+
                             <div class="row mb-3">
                                 <div class="col-12">
                                     <label for="descripcion" class="form-label">Descripción</label>
@@ -145,13 +144,12 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
 
-                        <div class="modal-footer">
-                            <button type="button" class="btn bg-danger" data-bs-dismiss="modal"
-                                style="color: white;">Cerrar</button>
-                            <button type="submit" class="btn bg-success addBtn" style="color: white;">Agregar</button>
+                        <!-- Footer con estilo del primer modal -->
+                        <div class="hstack gap-2 justify-content-end mt-3">
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-success addBtn">Agregar</button>
                         </div>
                     </form>
                 </div>

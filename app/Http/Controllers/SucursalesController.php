@@ -22,19 +22,17 @@ class SucursalesController extends Controller
     public function sucursales_ver($id)
     {
         $sucursal = Sucursal::findOrFail($id);
-
+        // Obtén TODAS las categorías asociadas (sin filtrar por padre/hijo)
         $categoriasAsociadas = $sucursal->categorias()->pluck('categorias.id')->toArray();
-
         $categoriasPadre = Categoria::whereNull('categoria_id')
             ->with(['categorias_hijosRecursive' => function ($query) {
                 $query->orderBy('nombre');
             }])
             ->orderBy('nombre')
             ->get();
-
         return view('layouts.admin.sucursales.ver', compact('sucursal', 'categoriasPadre', 'categoriasAsociadas'));
     }
-
+    
     public function sucursales_productos($id)
     {
         $sucursales_productos = Sucursal_Articulo::with([
@@ -266,11 +264,20 @@ class SucursalesController extends Controller
     public function asociarCategorias(Request $request, $sucursalId)
     {
         $sucursal = Sucursal::findOrFail($sucursalId);
-
         $categoriasSeleccionadas = $request->input('categorias', []);
 
-        $sucursal->categorias()->sync($categoriasSeleccionadas);
+        // Validar que todas las subcategorías seleccionadas tengan su padre seleccionado
+        foreach ($categoriasSeleccionadas as $categoriaId) {
+            $categoria = Categoria::find($categoriaId);
+            if ($categoria->categoria_id && !in_array($categoria->categoria_id, $categoriasSeleccionadas)) {
+                return response()->json([
+                    'success' => false,
+                    'message' => "Debes seleccionar también la categoría padre: {$categoria->categoria_padre->nombre}."
+                ], 422);
+            }
+        }
 
+        $sucursal->categorias()->sync($categoriasSeleccionadas);
         return response()->json([
             'success' => true,
             'message' => 'Categorías asociadas correctamente'
