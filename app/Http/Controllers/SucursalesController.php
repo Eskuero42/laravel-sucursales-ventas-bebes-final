@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Categoria;
 use App\Models\Sucursal;
 use App\Models\Sucursal_Articulo;
+use App\Models\Sucursal_Categoria;
 use App\Models\Tipo;
 use Illuminate\Http\Request;
 
@@ -45,18 +46,32 @@ class SucursalesController extends Controller
             ->whereNull('articulo_id')
             ->get();
 
-        $subcategorias = collect();
+        // Fix: Obtener la categoría padre y la sucursal-categoría directamente
+        $sucursalCategoria = Sucursal_Categoria::with('categoria')->find($id);
+        $categoriaPadre = $sucursalCategoria?->categoria;
 
-        if ($sucursales_productos->isNotEmpty()) {
-            $categoriaPadre = $sucursales_productos->first()->sucursales_categorias?->categoria;
-            if ($categoriaPadre) {
-                $subcategorias = $categoriaPadre->categorias_hijos;
+        // Usar la categoría padre para obtener las subcategorías de forma fiable
+        $subcategorias = $categoriaPadre ? $categoriaPadre->categorias_hijos : collect();
+
+        // Lógica para las migas de pan (ruta de navegación)
+        $rutaNavegacion = [];
+        if ($categoriaPadre) {
+            // La variable que mantiene la referencia a la categoría en la iteración actual
+            $referenciaActual = $categoriaPadre;
+
+            // Mientras haya una categoría padre...
+            while ($referenciaActual) {
+                // Añadir la categoría al inicio de la ruta (manteniendo el orden jerárquico)
+                array_unshift($rutaNavegacion, $referenciaActual);
+
+                // Subir al nivel superior
+                $referenciaActual = $referenciaActual->categoria_padre;
             }
         }
 
         $tipos = Tipo::get();
 
-        return view('layouts.admin.sucursales.productos.ver', compact('sucursales_productos', 'id', 'tipos', 'subcategorias'));
+        return view('layouts.admin.sucursales.productos.ver', compact('sucursales_productos', 'id', 'tipos', 'subcategorias', 'sucursalCategoria', 'categoriaPadre', 'rutaNavegacion'));
     }
 
     public function sucursales_registrar(Request $request)

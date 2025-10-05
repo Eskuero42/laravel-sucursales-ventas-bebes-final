@@ -1,26 +1,38 @@
 @extends('layouts.admin-layout')
 @section('contenido')
+
     <div class="row">
         <div class="card shadow-sm border rounded-3">
-            <div class="card-header bg-soft-primary position-relative d-flex align-items-center">
+            <div class="card-header bg-soft-primary position-relative d-flex align-items-center justify-content-between">
 
-                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target=".bs-edit-modal-lg">
-                    <i data-feather="edit-2"></i> Editar Categoría
+                {{-- 1. BOTÓN IZQUIERDO (Editar) --}}
+                <button type="button" class="btn btn-secondary flex-shrink-0" data-bs-toggle="modal"
+                    data-bs-target=".registro-producto">
+                    <i class="bx bx-plus-circle align-middle me-1"></i> Registrar Producto
                 </button>
 
-
+                {{-- 2. CONTENEDOR CENTRAL: Título de Sucursal --}}
                 @if ($sucursales_productos->isNotEmpty())
-                    <h4 class="card-title text-uppercase fw-bold mb-0 mx-auto">
+                    <h4 class="card-title text-uppercase fw-bold mb-0 mx-4 flex-shrink-0">
                         Sucursal:
                         {{ $sucursales_productos->first()?->sucursales_categorias?->sucursal?->nombre ?? 'Sucursal desconocida' }}
                     </h4>
                 @endif
 
-
-                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target=".registro-producto">
-                    <i class="bx bx-plus-circle align-middle me-1"></i> Registrar Producto
-                </button>
-
+                <div class="d-flex align-items-center ms-auto">
+                    @if (!empty($rutaNavegacion))
+                        <nav aria-label="Ruta de navegación" class="me-3 d-none d-md-block">
+                            <ol class="breadcrumb mb-0">
+                                @foreach ($rutaNavegacion as $ruta)
+                                    <li class="breadcrumb-item d-inline-flex {{ $loop->last ? 'active' : '' }}"
+                                        @if ($loop->last) aria-current="page" @endif>
+                                        {{ $ruta->nombre }}
+                                    </li>
+                                @endforeach
+                            </ol>
+                        </nav>
+                    @endif
+                </div>
                 <!--modal de registrar producto-->
                 <div class="modal fade registro-producto" tabindex="-1" role="dialog"
                     aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
@@ -45,8 +57,9 @@
                                     <div class="row mb-3">
                                         <div class="col-md-3">
                                             <label for="codigo" class="form-label">Código</label>
-                                            <input type="text" name="codigo" class="form-control" id=""
+                                            <input type="text" name="codigo" class="form-control" id="producto_codigo"
                                                 placeholder="M-##">
+                                            <div class="invalid-feedback" id="codigo_error"></div>
                                         </div>
 
                                         <div class="col-md-9">
@@ -85,7 +98,7 @@
                                                     <div class="col-xl-3">
                                                         <div class="form-check form-check-primary mb-2">
                                                             <input class="form-check-input" type="checkbox" name="tipos[]"
-                                                                id="tipo_{{ $tipo->id }}" value="{{ $tipo->id }}">
+                                                                id="tipo_{{ $tipo->id }}" value="{{ $tipo->id }}" data-tipo-nombre="{{ $tipo->nombre }}">
 
                                                             <label class="form-check-label text-primary"
                                                                 for="tipo_{{ $tipo->id }}">
@@ -102,7 +115,8 @@
                                     <div class="modal-footer mt-3">
                                         <button type="button" class="btn bg-danger" data-bs-dismiss="modal"
                                             style="color: white;">Cerrar</button>
-                                        <button type="submit" class="btn btn-secondary addBtn">Registrar Producto</button>
+                                        <button type="submit" class="btn btn-secondary addBtn">Registrar
+                                            Producto</button>
                                     </div>
                                 </form>
                             </div>
@@ -194,6 +208,7 @@
             </div>
         </div>
     </div>
+
     @if ($subcategorias->isNotEmpty())
         <div class="row">
             @foreach ($subcategorias as $subcategoria)
@@ -204,12 +219,6 @@
                                 {{ $subcategoria->nombre }}
                             </h4>
                             <div class="flex-shrink-0">
-                                <a href="#" class="btn btn-success btn-icon waves-effect waves-light"
-                                    title="Ir a detalles del producto" data-bs-toggle="modal"
-                                    data-bs-target=".bs-edit-modal-dialog">
-                                    <i data-feather="plus"></i>
-                                </a>
-
                                 <button type="button" class="btn btn-warning btn-icon waves-effect waves-light editBtn"
                                     title="Editar categoría" data-bs-obj='@json($subcategoria)'
                                     data-bs-toggle="modal" data-bs-target=".bs-edit-modal-lg">
@@ -232,11 +241,7 @@
                                 class="btn btn-info waves-effect waves-light" title="Ir a detalles del producto">
                                 <i data-feather="eye"></i> Todos los productos
                             </a>
-
-                            <a href="#" class="btn btn-primary btn-icon waves-effect waves-light"
-                                title="Ir a detalles del producto">
-                                <i data-feather="eye"></i>
-                            </a>
+                           
                         </div>
                     </div>
                 </div>
@@ -262,12 +267,9 @@
                 <div class="modal-body">
                     <form action="" id="addSubcategoriaForm" enctype="multipart/form-data">
                         @csrf
-                        <input type="hidden" name="sucursal"
-                            value="{{ $sucursales_productos->first()?->sucursales_categorias?->sucursal_id }}">
-                        <input type="hidden" name="categoria_id"
-                            value="{{ $sucursales_productos->first()?->sucursales_categorias?->categoria_id }}">
-                        <input type="hidden" name="tipo"
-                            value="{{ $sucursales_productos->first()?->sucursales_categorias?->categoria?->tipo }}">
+                        <input type="hidden" name="sucursal" value="{{ $sucursalCategoria?->sucursal_id }}">
+                        <input type="hidden" name="categoria_id" value="{{ $categoriaPadre?->id }}">
+                        <input type="hidden" name="tipo" value="{{ $categoriaPadre?->tipo }}">
                         <div class="row g-3">
                             <div class="row mb-3">
                                 <div class="col-md-12">
@@ -309,10 +311,33 @@
 @push('script')
     <script>
         $(document).ready(function() {
+            const tallasCheckbox = $('input[data-tipo-nombre="Tallas"]');
+            const capacidadesCheckbox = $('input[data-tipo-nombre="Capacidades"]');
+
+            tallasCheckbox.on('change', function() {
+                if ($(this).is(':checked')) {
+                    capacidadesCheckbox.prop('disabled', true);
+                    capacidadesCheckbox.prop('checked', false);
+                } else {
+                    capacidadesCheckbox.prop('disabled', false);
+                }
+            });
+
+            capacidadesCheckbox.on('change', function() {
+                if ($(this).is(':checked')) {
+                    tallasCheckbox.prop('disabled', true);
+                    tallasCheckbox.prop('checked', false);
+                } else {
+                    tallasCheckbox.prop('disabled', false);
+                }
+            });
+
             $('#addformproducto').submit(function(e) {
                 e.preventDefault();
-                $('.addBtn').prop('disabled', true);
+                $('#producto_codigo').removeClass('is-invalid');
+                $('#codigo_error').text('');
 
+                $('.addBtn').prop('disabled', true);
                 var formData = new FormData(this);
 
                 $.ajax({
@@ -329,7 +354,15 @@
                         }
                     },
                     error: function(xhr) {
-                        alert(xhr.responseJSON?.message || 'Error al registrar producto');
+                        if (xhr.status === 422) {
+                            let errors = xhr.responseJSON.errors;
+                            if (errors.codigo) {
+                                $('#producto_codigo').addClass('is-invalid');
+                                $('#codigo_error').text(errors.codigo[0]);
+                            }
+                        } else {
+                            alert(xhr.responseJSON?.message || 'Error al registrar producto');
+                        }
                     },
                     complete: function() {
                         $('.addBtn').prop('disabled', false);
@@ -350,7 +383,7 @@
                     success: function(res) {
                         alert(res.message);
                         if (res.success) {
-                            $('#addForm')[0].reset(); // Limpiar el formulario
+                            $('#addSubcategoriaForm')[0].reset(); // Limpiar el formulario
                             location.reload();
                         }
                     },
