@@ -87,8 +87,18 @@ class ProductosController extends Controller
 
     public function productoSucursalRegistrar(Request $request)
     {
-        //\Log::info($request->all());
-        //exit;
+        $validatedData = $request->validate([
+            'codigo' => 'required|string|max:255|unique:productos,codigo',
+            'nombre' => 'required|string|max:255',
+            'descripcion' => 'required|string',
+            'imagen' => 'required|image',
+            'precio' => 'required|numeric|min:0',
+            'tipos' => 'required|array',
+            'sucursal_categoria_id' => 'required|exists:sucursales_categorias,id'
+        ], [
+            'codigo.unique' => 'Ese codigo ya está en uso.',
+        ]);
+
         // Procesar la imagen con Intervention Image
         $image = $request->file('imagen');
         $imageName = time() . '_' . $image->getClientOriginalName();
@@ -104,14 +114,14 @@ class ProductosController extends Controller
         $img->save(public_path($imagePath));
 
         $producto_id = Producto::insertGetId([
-            'codigo' => $request->codigo,
-            'nombre' => $request->nombre,
-            'descripcion' => $request->descripcion,
+            'codigo' => $validatedData['codigo'],
+            'nombre' => $validatedData['nombre'],
+            'descripcion' => $validatedData['descripcion'],
             'imagen_principal' => $imagePath,
-            'precio' => $request->precio
+            'precio' => $validatedData['precio']
         ]);
 
-        $tipos = $request->tipos;
+        $tipos = $validatedData['tipos'];
         foreach ($tipos as $tipo) {
             Producto_Tipo::create([
                 'producto_id' => $producto_id,
@@ -120,7 +130,7 @@ class ProductosController extends Controller
         }
 
         Sucursal_Articulo::create([
-            'sucursales_categorias_id' => $request->sucursal_categoria_id,
+            'sucursales_categorias_id' => $validatedData['sucursal_categoria_id'],
             'producto_id' => $producto_id
         ]);
         return response()->json([
