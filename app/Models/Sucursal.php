@@ -14,15 +14,19 @@ class Sucursal extends Model
     protected $fillable = [
         'nombre',
         'direccion',
-        'horario_inicio',
-        'horario_fin',
         'latitud',
         'longitud'
+        // ⬅️ Eliminar horario_inicio y horario_fin
     ];
 
     public function sliders()
     {
         return $this->hasMany(Slider::class);
+    }
+
+    public function horarios()
+    {
+        return $this->hasMany(Horario::class);
     }
 
     public function sucursal_categorias()

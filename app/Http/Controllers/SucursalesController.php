@@ -76,56 +76,113 @@ class SucursalesController extends Controller
 
     public function sucursales_registrar(Request $request)
     {
-        $request->validate([
-            'nombre' => 'required|string|max:255',
-            'direccion' => 'required|string|max:255',
-            'horario_inicio' => 'required',
-            'horario_fin' => 'required',
-            'latitud' => 'required|numeric',
-            'longitud' => 'required|numeric',
-        ]);
+        try {
+            $request->validate([
+                'nombre' => 'required|string|max:255',
+                'direccion' => 'required|string|max:255',
+                'latitud' => 'required|numeric',
+                'longitud' => 'required|numeric',
+                'horarios' => 'required|array',
+                'horarios.*.hora_inicio' => 'nullable|date_format:H:i',
+                'horarios.*.hora_fin' => 'nullable|date_format:H:i',
+                'horarios.*.cerrado' => 'nullable|boolean',
+            ]);
 
-        Sucursal::create([
-            'nombre' => $request->nombre,
-            'direccion' => $request->direccion,
-            'horario_inicio' => $request->horario_inicio,
-            'horario_fin' => $request->horario_fin,
-            'latitud' => $request->latitud,
-            'longitud' => $request->longitud,
-        ]);
+            // Crear la sucursal
+            $sucursal = Sucursal::create([
+                'nombre' => $request->nombre,
+                'direccion' => $request->direccion,
+                'latitud' => $request->latitud,
+                'longitud' => $request->longitud,
+            ]);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Sucursal registrada exitosamente.',
-        ]);
+            // Crear los horarios para cada día
+            foreach ($request->horarios as $dia => $horario) {
+                $cerrado = isset($horario['cerrado']) && $horario['cerrado'] == '1';
+
+                $sucursal->horarios()->create([
+                    'dia_semana' => $dia,
+                    'hora_inicio' => $cerrado ? null : $horario['hora_inicio'],
+                    'hora_fin' => $cerrado ? null : $horario['hora_fin'],
+                    'cerrado' => $cerrado,
+                ]);
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Sucursal y horarios registrados exitosamente.',
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error: ' . $e->getMessage()
+            ], 500);
+        }
     }
 
     public function sucursales_editar(Request $request)
     {
-        // Validar los datos recibidos
-        $request->validate([
-            'id' => 'required|integer|exists:sucursales,id',
-            'nombre' => 'required|string|max:255',
-            'direccion' => 'required|string|max:255',
-        ]);
+        try {
+            $sucursal = Sucursal::findOrFail($request->id);
+            $sucursal->update([
+                'nombre' => $request->nombre,
+                'direccion' => $request->direccion,
+                'latitud' => $request->latitud,
+                'longitud' => $request->longitud,
+            ]);
 
-        // Buscar la sucursal por ID
-        $sucursal = Sucursal::findOrFail($request->id);
+            // Actualizar horarios si los envió
+            if ($request->has('horarios')) {
+                foreach ($request->horarios as $dia => $horario) {
+                    $cerrado = isset($horario['cerrado']) && $horario['cerrado'] == '1';
+                    $sucursal->horarios()->updateOrCreate(
+                        ['dia_semana' => $dia],
+                        [
+                            'hora_inicio' => $cerrado ? null : $horario['hora_inicio'],
+                            'hora_fin' => $cerrado ? null : $horario['hora_fin'],
+                            'cerrado' => $cerrado,
+                        ]
+                    );
+                }
+            }
 
-        // Actualizar la sucursal
-        $sucursal->update([
-            'nombre' => $request->nombre,
-            'direccion' => $request->direccion,
-        ]);
-
-        // Retornar una respuesta JSON
-        return response()->json([
-            'success' => true,
-            'message' => 'Sucursal actualizada exitosamente.',
-            'sucursal' => $sucursal,
-        ]);
+            return response()->json(['success' => true, 'message' => 'Sucursal actualizada correctamente.']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
+        }
     }
 
+    public function editarHorarios(Request $request)
+    {
+        $sucursal = Sucursal::find($request->id);
+
+        if (!$sucursal) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Sucursal no encontrada.'
+            ]);
+        }
+
+        $horariosInput = $request->input('horarios', []);
+
+        foreach ($horariosInput as $dia => $h) {
+            $cerrado = isset($h['cerrado']) && $h['cerrado'] == '1';
+
+            $sucursal->horarios()->updateOrCreate(
+                ['dia_semana' => $dia], // Condición para buscar
+                [
+                    'hora_inicio' => $cerrado ? null : $h['hora_inicio'] ?? null,
+                    'hora_fin' => $cerrado ? null : $h['hora_fin'] ?? null,
+                    'cerrado' => $cerrado,
+                ]
+            );
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Horarios actualizados correctamente.'
+        ]);
+    }
 
     public function sucursales_eliminar(Request $request)
     {

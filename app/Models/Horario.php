@@ -5,20 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Slider extends Model
+class Horario extends Model
 {
     use HasFactory;
 
-    protected $table = 'sliders';
-
     protected $fillable = [
         'sucursal_id',
-        'imagen',
-        'titulo',
-        'descripcion',
-        'tipo',
-        'posicion',
-        'estado',
+        'dia_semana',
+        'hora_inicio',
+        'hora_fin',
+        'cerrado'
+    ];
+
+    protected $casts = [
+        'cerrado' => 'boolean',
     ];
 
     public function sucursal()

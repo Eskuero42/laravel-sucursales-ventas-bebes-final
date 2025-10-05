@@ -36,9 +36,17 @@ class SlidersController extends Controller
     {
         try {
             $sucursal = Sucursal::findOrFail($id);
-            $sliders = $sucursal->sliders()->get(); // Usa la relación que ya tienes en el modelo Sucursal
 
-            return view('layouts.admin.sliders.listar_s', compact('sucursal', 'sliders'));
+            // Filtrar sliders por tipo
+            $sliders = $sucursal->sliders()
+                ->whereIn('tipo', ['principal', 'secundario'])
+                ->get();
+
+            $iconos = $sucursal->sliders()
+                ->where('tipo', 'icono')
+                ->get();
+
+            return view('layouts.admin.sliders.listar_s', compact('sucursal', 'sliders', 'iconos'));
         } catch (\Exception $e) {
             return abort(404, "Error al cargar sliders de la sucursal");
         }
@@ -108,15 +116,16 @@ class SlidersController extends Controller
                 'sucursal_id' => 'required|exists:sucursales,id',
                 'titulo' => 'nullable|string|max:255',
                 'descripcion' => 'nullable|string|max:255',
-                'tipo' => 'nullable|in:principal,secundario',
+                'tipo' => 'nullable|in:principal,secundario,icono', // ⬅️ Agregué 'icono'
                 'posicion' => 'nullable|in:izquierda,centro,derecha',
                 'estado' => 'nullable|in:activo,inactivo',
-                'imagen' => 'nullable|image|max:2048', // 2MB máximo
+                'imagen' => 'nullable|image|max:2048',
             ]);
 
             $slider = Slider::findOrFail($request->id);
 
-            $data = $request->only(['titulo', 'descripcion', 'tipo', 'posicion', 'estado']);
+            // ⬅️ IMPORTANTE: Agregué 'sucursal_id' aquí
+            $data = $request->only(['sucursal_id', 'titulo', 'descripcion', 'tipo', 'posicion', 'estado']);
 
             // Si se subió una nueva imagen
             if ($request->hasFile('imagen')) {

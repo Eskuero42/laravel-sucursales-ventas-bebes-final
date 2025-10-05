@@ -48,6 +48,7 @@ Route::get('/admin/sucursal/listar', [SucursalesController::class, 'sucursales_l
 Route::get('/admin/sucursal/ver/{id}', [SucursalesController::class, 'sucursales_ver'])->name('admin.sucursales.ver');
 Route::post('/admin/sucursal/registrar', [SucursalesController::class, 'sucursales_registrar'])->name('admin.sucursales.registrar');
 Route::post('/admin/sucursal/editar', [SucursalesController::class, 'sucursales_editar'])->name('admin.sucursales.editar');
+Route::post('/admin/sucursales/editar-horarios', [SucursalesController::class, 'editarHorarios'])->name('admin.sucursales.editarHorarios');
 Route::delete('/admin/sucursal/eliminar', [SucursalesController::class, 'sucursales_eliminar'])->name('admin.sucursales.eliminar');
 Route::get('/admin/sucursales/categorias/productos/ver/{id}', [SucursalesController::class, 'sucursales_productos'])->name('admin.sucursales.categorias.productos.ver');
 Route::get('/admin/sucursales/categorias/productos/articulos/listar/{id}', [SucursalesController::class, 'sucursales_productos_articulos'])->name('admin.sucursales.categorias.productos.articulos.listar');

@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('direccion');
-            $table->time('horario_inicio')->nullable();
-            $table->time('horario_fin')->nullable();
+            // ⬅️ Eliminar horario_inicio y horario_fin
             $table->decimal('latitud', 10, 8)->nullable();
             $table->decimal('longitud', 11, 8)->nullable();
             $table->timestamps();
