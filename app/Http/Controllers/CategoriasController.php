@@ -121,15 +121,16 @@ class CategoriasController extends Controller
             'descripcion' => 'required|string|max:1000',
             'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif,ico|max:2048',
             'categoria_id' => 'nullable|exists:categorias,id',
-            'sucursal' => 'required|exists:sucursales,id',
+            'sucursales' => 'nullable|array',
+            'sucursales.*' => 'exists:sucursales,id',
         ]);
 
-        // Buscar la categoría a editar
+        
         $categoria = Categoria::findOrFail($validated['id']);
 
-        // Procesar la imagen si se sube una nueva
+        
         if ($request->hasFile('imagen')) {
-            // Eliminar la imagen anterior si existe
+            
             if ($categoria->imagen && File::exists(public_path($categoria->imagen))) {
                 File::delete(public_path($categoria->imagen));
             }
@@ -139,36 +140,23 @@ class CategoriasController extends Controller
             $imageName = time() . '_' . $image->getClientOriginalName();
             $imagePath = 'archivos/categorias/' . $imageName;
 
-            // Redimensionar y optimizar la imagen
             $img = Image::make($image->getRealPath());
             $img->resize(800, null, function ($constraint) {
                 $constraint->aspectRatio();
             });
-
-            // Guardar la imagen en public/archivos/categorias/
             $img->save(public_path($imagePath));
-
-            // Actualizar la ruta de la imagen en la categoría
             $categoria->imagen = $imagePath;
         }
-
-        // Actualizar los datos de la categoría
         $categoria->nombre = $validated['nombre'];
         $categoria->tipo = $validated['tipo'];
         $categoria->descripcion = $validated['descripcion'];
         $categoria->categoria_id = $validated['categoria_id'] ?? null;
         $categoria->save();
-
-        // Actualizar la relación con la sucursal
-        $sucursalCategoria = Sucursal_Categoria::where('categoria_id', $categoria->id)->first();
-        if ($sucursalCategoria) {
-            $sucursalCategoria->sucursal_id = $validated['sucursal'];
-            $sucursalCategoria->save();
+        if ($request->has('sucursales') && !empty($validated['sucursales'])) {
+            
+            $categoria->sucursales()->sync($validated['sucursales']);
         } else {
-            Sucursal_Categoria::create([
-                'categoria_id' => $categoria->id,
-                'sucursal_id' => $validated['sucursal'],
-            ]);
+            $categoria->sucursales()->detach();
         }
 
         return response()->json([
@@ -177,7 +165,6 @@ class CategoriasController extends Controller
             'categoria' => $categoria
         ]);
     }
-
     /*******************USUARIO*************** */
     private function obtenerTodasLasSubcategoriasIds($categoriaId)
     {
