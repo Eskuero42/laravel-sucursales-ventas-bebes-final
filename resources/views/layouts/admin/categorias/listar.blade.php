@@ -21,14 +21,14 @@
                     <div class="card-header align-items-center d-flex">
                         <h4 class="card-title mb-0 flex-grow-1">{{ $categoria->nombre }}</h4>
                         <div class="flex-shrink-0">
-                            <a href="#" class="btn btn-success btn-icon waves-effect waves-light"
+                            {{-- <a href="#" class="btn btn-success btn-icon waves-effect waves-light"
                                 title="Ir a detalles del producto" data-bs-toggle="modal"
                                 data-bs-target=".bs-edit-modal-dialog">
                                 <i data-feather="plus"></i>
-                            </a>
+                            </a>  --}}
 
                             <button type="button" class="btn btn-warning btn-icon waves-effect waves-light editBtn"
-                                title="Editar categoría" data-bs-obj='@json($categoria)' data-bs-toggle="modal"
+                                title="Editar categoría" data-bs-obj='@json($categoria->load('sucursales'))' data-bs-toggle="modal"
                                 data-bs-target=".bs-edit-modal-lg">
                                 <i data-feather="edit-2"></i>
                             </button>
@@ -37,7 +37,7 @@
 
                     <div class="card-body text-center">
                         <div class="bg-info-subtle rounded p-2 mb-3">
-                            <img src="{{ asset('storage/' . $categoria->imagen) }}" alt="{{ $categoria->nombre }}"
+                            <img src="{{ asset($categoria->imagen) }}" alt="{{ $categoria->nombre }}"
                                 class="img-fluid rounded" style="max-height: 210px;">
                         </div>
                         <h5>
@@ -45,15 +45,15 @@
                                 Descripción: {{ $categoria->descripcion }}
                             </p>
                         </h5>
-                        <a href="{{-- route('admin.productos.vertodos', ['id' => $categoria->id, $categoria->tipo]) --}}" class="btn btn-info  waves-effect waves-light"
+                        {{-- <a href="{{-- route('admin.productos.vertodos', ['id' => $categoria->id, $categoria->tipo])" class="btn btn-info  waves-effect waves-light"
                             title="Ir a detalles del producto">
                             <i data-feather="eye"></i>Todos los productos
-                        </a>
+                        </a> 
 
                         <a href="#" class="btn btn-primary btn-icon waves-effect waves-light"
                             title="Ir a detalles del producto">
                             <i data-feather="eye"></i>
-                        </a>
+                        </a> --}}
                     </div>
                 </div>
             </div>
@@ -121,7 +121,6 @@
                                         name="imagen">
                                 </div>
                             </div>
-                           
                             <div class="row mb-3">
                                 <div class="col-12">
                                     <label for="descripcion" class="form-label">Descripción</label>
@@ -304,7 +303,7 @@
                 $('#editNombre').val(data.nombre);
                 $('#editDescripcion').val(data.descripcion);
                 $('#editSucursalesCheckboxes input[type="checkbox"]').prop('checked', false);
-                
+
                 if (data.sucursales && Array.isArray(data.sucursales)) {
                     data.sucursales.forEach(function(sucursal) {
                         $('#edit_sucursal_' + sucursal.id).prop('checked', true);
@@ -319,7 +318,7 @@
 
                 // Mostrar la imagen actual
                 if (data.imagen) {
-                    $('#editPreview').attr('src', '/storage/' + data.imagen).show();
+                    $('#editPreview').attr('src', '/' + data.imagen).show();
                 } else {
                     $('#editPreview').hide();
                 }
