@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Slider;
 use Illuminate\Http\Request;
+use App\Models\Sucursal;
 
 class SlidersController extends Controller
 {
@@ -20,17 +21,51 @@ class SlidersController extends Controller
         }
     }
 
+    public function u_slidersSucursales()
+    {
+        try {
+            $sucursales = Sucursal::orderBy('nombre')->get();
+
+            return view('layouts.admin.sliders.listar', compact('sucursales'));
+        } catch (\Exception $e) {
+            return abort(404, "Error al cargar sucursales");
+        }
+    }
+
+    public function porSucursal($id)
+    {
+        try {
+            $sucursal = Sucursal::findOrFail($id);
+            $sliders = $sucursal->sliders()->get(); // Usa la relación que ya tienes en el modelo Sucursal
+
+            return view('layouts.admin.sliders.listar_s', compact('sucursal', 'sliders'));
+        } catch (\Exception $e) {
+            return abort(404, "Error al cargar sliders de la sucursal");
+        }
+    }
+
+    public function u_slidersPorSucursal($id)
+    {
+        try {
+            $sucursal = Sucursal::with('sliders')->findOrFail($id);
+
+            return view('layouts.admin.sliders.listar', compact('sucursal'));
+        } catch (\Exception $e) {
+            return abort(404, "Error al cargar sliders de la sucursal");
+        }
+    }
 
     public function u_slidersRegistrarCategoria(Request $request)
     {
         try {
             $request->validate([
+                'sucursal_id' => 'required|exists:sucursales,id',
                 'titulo' => 'nullable|string|max:255',
                 'descripcion' => 'required|string|max:255',
                 'tipo' => 'required|in:principal,secundario,icono',
                 'posicion' => 'required|in:izquierda,centro,derecha',
                 'estado' => 'required|in:activo,inactivo',
-                'imagen' => 'required|image|max:2048', // 2MB máximo
+                'imagen' => 'required|image|max:2048',
             ]);
 
             $fileName = null;
@@ -44,6 +79,7 @@ class SlidersController extends Controller
             }
 
             Slider::create([
+                'sucursal_id' => $request->sucursal_id,  // <-- agregado
                 'imagen' => $fileName,
                 'titulo' => $request->titulo,
                 'descripcion' => $request->descripcion,
@@ -69,6 +105,7 @@ class SlidersController extends Controller
         try {
             $request->validate([
                 'id' => 'required|exists:sliders,id',
+                'sucursal_id' => 'required|exists:sucursales,id',
                 'titulo' => 'nullable|string|max:255',
                 'descripcion' => 'nullable|string|max:255',
                 'tipo' => 'nullable|in:principal,secundario',

@@ -84,7 +84,8 @@ Route::post('/admin/sucursal_categoria/registrar', [SucursalesController::class,
 Route::post('/admin/sucursales/{sucursal}/categorias/asociar', [SucursalesController::class, 'asociarCategorias'])->name('admin.sucursales.categorias.asociar');
 
 // Sliders
-Route::get('/admin/sliders/listar', [SlidersController::class, 'u_slidersListar'])->name('user.sliders.listar');
+Route::get('/admin/sliders/listar', [SlidersController::class, 'u_slidersSucursales'])->name('user.sliders.listar');
+Route::get('/admin/sliders/sucursal/{id}', [SlidersController::class, 'porSucursal'])->name('user.sliders.porSucursal');
 Route::post('/admin/sliders-registrar', [SlidersController::class, 'u_slidersRegistrarCategoria'])->name('user.sliders.registrar');
 Route::post('/admin/sliders-actualizar', [SlidersController::class, 'u_slidersActualizarCategoria'])->name('user.sliders.actualizar');
 

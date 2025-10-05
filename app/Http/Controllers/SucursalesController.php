@@ -64,11 +64,19 @@ class SucursalesController extends Controller
         $request->validate([
             'nombre' => 'required|string|max:255',
             'direccion' => 'required|string|max:255',
+            'horario_inicio' => 'required',
+            'horario_fin' => 'required',
+            'latitud' => 'required|numeric',
+            'longitud' => 'required|numeric',
         ]);
 
         Sucursal::create([
             'nombre' => $request->nombre,
             'direccion' => $request->direccion,
+            'horario_inicio' => $request->horario_inicio,
+            'horario_fin' => $request->horario_fin,
+            'latitud' => $request->latitud,
+            'longitud' => $request->longitud,
         ]);
 
         return response()->json([
@@ -76,7 +84,6 @@ class SucursalesController extends Controller
             'message' => 'Sucursal registrada exitosamente.',
         ]);
     }
-
 
     public function sucursales_editar(Request $request)
     {

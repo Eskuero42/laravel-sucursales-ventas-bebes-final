@@ -8,15 +8,25 @@ use Illuminate\Database\Eloquent\Model;
 class Sucursal extends Model
 {
     use HasFactory;
+
     protected $table = 'sucursales';
+
     protected $fillable = [
         'nombre',
-        'direccion'
+        'direccion',
+        'horario_inicio',
+        'horario_fin',
+        'latitud',
+        'longitud'
     ];
+
+    public function sliders()
+    {
+        return $this->hasMany(Slider::class);
+    }
 
     public function sucursal_categorias()
     {
-        // Una sucursal tiene muchas sucursal_categorias
         return $this->hasMany(Sucursal_Categoria::class);
     }
 

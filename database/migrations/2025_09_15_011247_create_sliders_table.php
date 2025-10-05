@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('sliders', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('sucursal_id')->nullable();
             $table->string('imagen')->nullable();
             $table->string('titulo')->nullable();
             $table->string('descripcion')->nullable();
@@ -20,9 +21,13 @@ return new class extends Migration
             $table->enum('posicion', ['izquierda', 'centro', 'derecha'])->nullable();
             $table->enum('estado', ['activo', 'inactivo'])->default('activo');
             $table->timestamps();
+
+            $table->foreign('sucursal_id')
+                ->references('id')
+                ->on('sucursales')
+                ->onDelete('cascade');
         });
     }
-
     /**
      * Reverse the migrations.
      */

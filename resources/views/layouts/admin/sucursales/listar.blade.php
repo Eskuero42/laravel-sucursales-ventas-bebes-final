@@ -28,8 +28,8 @@
                             <div class="col-sm-auto">
                                 <div>
                                     <button type="button" class="btn btn-success add-btn" data-bs-toggle="modal"
-                                        id="create-btn" data-bs-target="#exampleModalgrid"><i
-                                            class="ri-add-line align-bottom me-1"></i> Registrar Sucursales
+                                        id="create-btn" data-bs-target="#exampleModalgrid">
+                                        <i class="ri-add-line align-bottom me-1"></i> Registrar Sucursales
                                     </button>
                                 </div>
                             </div>
@@ -116,53 +116,99 @@
         <!-- end col -->
     </div>
     <!-- end row -->
+
     <!-- Modal para registrar sucursales -->
-    <div class="modal fade" id="exampleModalgrid" tabindex="-1" aria-labelledby="exampleModalgridLabel" aria-modal="true">
-        <div class="modal-dialog">
-            <div class="modal-content rounded-3 shadow-lg border-3">
-                <div class="modal-header bg-light border-0">
-                    <h5 class="modal-title text-success fw-bold d-flex align-items-center" id="exampleModalgridLabel">
-                        <i class="ri-layout-grid-line me-2"></i> Registro de Datos
+    <div class="modal fade" id="exampleModalgrid" tabindex="-1" aria-labelledby="exampleModalgridLabel">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-success">
+                    <h5 class="modal-title text-white" id="exampleModalgridLabel">
+                        <i class="ri-store-2-line me-2"></i> Registro de Sucursal
                     </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="addForm" action="">
+                    <form id="addForm">
                         @csrf
-                        <div class="row g-3">
-
-                            <!-- Primera columna -->
-                            <div class="col-xxl-12">
-                                <div>
-                                    <label for="" class="form-label fw-semibold">Nombre</label>
+                        <div class="row">
+                            <!-- Columna Izquierda -->
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="nombre" class="form-label fw-semibold">Nombre de la Sucursal</label>
                                     <input type="text" name="nombre" class="form-control border-success-subtle"
-                                        id="" placeholder="Ingrese Nombre" required>
+                                        id="nombre" placeholder="Ingrese nombre" required>
                                 </div>
-                                <div>
-                                    <label for="" class="form-label fw-semibold">Direccion</label>
-                                    <input type="text" name="direccion" class="form-control border-success-subtle"
-                                        id="" placeholder="Ingrese Direccion" required>
+                                <div class="mb-3">
+                                    <label for="direccion" class="form-label fw-semibold">Dirección</label>
+                                    <textarea name="direccion" class="form-control border-success-subtle" id="direccion" rows="3"
+                                        placeholder="Ingrese dirección" required></textarea>
                                 </div>
-                            </div>
-                            <!-- Botones -->
-                            <div class="col-lg-12">
-                                <div class="hstack gap-2 justify-content-end pt-3">
-                                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">
-                                        <i class="ri-close-line align-middle"></i> Cancelar
-                                    </button>
-                                    <button type="submit" class="btn btn-success addBtn">
-                                        <i class="ri-check-line align-middle"></i> Registrar
-                                    </button>
+                                <div class="row">
+                                    <div class="col-6 mb-3">
+                                        <label for="horario_inicio" class="form-label fw-semibold">Horario Inicio</label>
+                                        <input type="time" name="horario_inicio"
+                                            class="form-control border-success-subtle" id="horario_inicio" required>
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <label for="horario_fin" class="form-label fw-semibold">Horario Fin</label>
+                                        <input type="time" name="horario_fin"
+                                            class="form-control border-success-subtle" id="horario_fin" required>
+                                    </div>
                                 </div>
                             </div>
 
-                        </div><!--end row-->
+                            <!-- Columna Derecha - Ubicación -->
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="google_maps_url" class="form-label fw-semibold">Link de Google
+                                        Maps</label>
+                                    <input type="text" id="google_maps_url" class="form-control border-info-subtle"
+                                        placeholder="Pega el link de Google Maps aquí">
+                                    <button type="button" class="btn btn-sm btn-info mt-2"
+                                        onclick="extraerCoordenadas()">
+                                        <i class="ri-map-pin-line me-1"></i> Obtener Coordenadas
+                                    </button>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6 mb-3">
+                                        <label for="latitud" class="form-label fw-semibold">Latitud</label>
+                                        <input type="text" name="latitud" id="latitud"
+                                            class="form-control border-success-subtle" readonly required>
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <label for="longitud" class="form-label fw-semibold">Longitud</label>
+                                        <input type="text" name="longitud" id="longitud"
+                                            class="form-control border-success-subtle" readonly required>
+                                    </div>
+                                </div>
+
+                                <div class="alert alert-info border-0 bg-info-subtle">
+                                    <small>
+                                        <strong>Instrucciones:</strong><br>
+                                        1. Busca la ubicación en Google Maps<br>
+                                        2. Copia el link de la barra de direcciones<br>
+                                        3. Pégalo arriba y haz clic en "Obtener Coordenadas"
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Botones -->
+                        <div class="text-end mt-3">
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+                                <i class="ri-close-line me-1"></i> Cancelar
+                            </button>
+                            <button type="submit" class="btn btn-success addBtn">
+                                <i class="ri-check-line me-1"></i> Registrar
+                            </button>
+                        </div>
                     </form>
                 </div>
-
             </div>
         </div>
     </div>
+
     <!-- Modal para editar sucursales -->
     <div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="showModal" aria-modal="true">
         <div class="modal-dialog">
@@ -253,7 +299,45 @@
 
 @push('script')
     <script>
+        // Función FUERA para que sea accesible desde onclick
+        function extraerCoordenadas() {
+            let url = $('#google_maps_url').val();
+
+            if (!url) {
+                alert('Por favor pega un link de Google Maps');
+                return;
+            }
+
+            // Si es un link acortado
+            if (url.includes('goo.gl')) {
+                alert(
+                    'Link acortado detectado.\n\nPor favor:\n1. Abre ese link en tu navegador\n2. Cuando cargue, copia la URL COMPLETA de la barra de direcciones\n3. Pégala aquí');
+                return;
+            }
+
+            // Buscar coordenadas en varios formatos
+            let match = url.match(/@(-?\d+\.\d+),(-?\d+\.\d+)/) ||
+                url.match(/!3d(-?\d+\.\d+)!4d(-?\d+\.\d+)/) ||
+                url.match(/ll=(-?\d+\.\d+),(-?\d+\.\d+)/);
+
+            if (match) {
+                $('#latitud').val(match[1]);
+                $('#longitud').val(match[2]);
+                alert('Coordenadas obtenidas correctamente');
+            } else {
+                alert(
+                    'No se pudieron extraer las coordenadas.\n\nAsegúrate de copiar la URL completa desde la barra de direcciones.');
+            }
+        }
+
+        // Ahora sí el $(document).ready
         $(document).ready(function() {
+            // Limpiar formulario al cerrar modal
+            $('#exampleModalgrid').on('hidden.bs.modal', function() {
+                $('#addForm')[0].reset();
+            });
+
+            // Enviar formulario
             $('#addForm').submit(function(e) {
                 e.preventDefault();
                 $('.addBtn').prop('disabled', true);
@@ -272,17 +356,19 @@
                         if (res.success) {
                             location.reload();
                         }
+                    },
+                    error: function(xhr) {
+                        alert('Error al registrar la sucursal');
+                        $('.addBtn').prop('disabled', false);
                     }
                 });
             });
 
             //modificar
             $('#showModal').on('show.bs.modal', function(event) {
-                var button = $(event.relatedTarget); // Botón que activó el modal
-                var sucursal = button.data(
-                    'bs-obj'); // Extrae la información de la sucursal del atributo data-bs-obj
+                var button = $(event.relatedTarget);
+                var sucursal = button.data('bs-obj');
 
-                // Actualiza los campos del formulario en el modal de edición
                 var modal = $(this);
                 modal.find('#updateId').val(sucursal.id);
                 modal.find('#nombre').val(sucursal.nombre);
@@ -312,7 +398,6 @@
             });
 
             // Eliminar
-
             $('.deleteBtn').click(function() {
                 var id = $(this).data('bs-id');
                 $('#deleteSucursalId').val(id);
