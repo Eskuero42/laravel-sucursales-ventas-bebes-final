@@ -98,7 +98,8 @@
                                                     <div class="col-xl-3">
                                                         <div class="form-check form-check-primary mb-2">
                                                             <input class="form-check-input" type="checkbox" name="tipos[]"
-                                                                id="tipo_{{ $tipo->id }}" value="{{ $tipo->id }}" data-tipo-nombre="{{ $tipo->nombre }}">
+                                                                id="tipo_{{ $tipo->id }}" value="{{ $tipo->id }}"
+                                                                data-tipo-nombre="{{ $tipo->nombre }}">
 
                                                             <label class="form-check-label text-primary"
                                                                 for="tipo_{{ $tipo->id }}">
@@ -241,7 +242,7 @@
                                 class="btn btn-info waves-effect waves-light" title="Ir a detalles del producto">
                                 <i data-feather="eye"></i> Todos los productos
                             </a>
-                           
+
                         </div>
                     </div>
                 </div>
@@ -307,10 +308,68 @@
             </div>
         </div>
     </div>
+
+    <!-- modal de editar subcategoria -->
+    <div class="modal fade bs-edit-modal-lg" tabindex="-1" aria-labelledby="myLargeModalLabel" aria-modal="true"
+        role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-soft-warning justify-content-center position-relative">
+                    <h3 class="modal-title text-uppercase fw-bold text-warning-emphasis text-center w-100"
+                        id="myExtraLargeModalLabel">
+                        <i class="ri-edit-box-line me-1"></i> Editar SubCategoría
+                    </h3>
+                    <button type="button" class="btn-close position-absolute end-0 top-50 translate-middle-y me-3"
+                        data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editSubcategoriaForm" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="id" id="edit_id">
+                        <input type="hidden" name="tipo" id="edit_tipo">
+                        <input type="hidden" name="categoria_id" id="edit_categoria_id">
+
+                        <div class="row g-3">
+                            <div class="mb-3">
+                                <label for="edit_nombre" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="edit_nombre" name="nombre" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="edit_descripcion" class="form-label">Descripción</label>
+                                <textarea class="form-control" id="edit_descripcion" rows="3" name="descripcion" required></textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="edit_imagen" class="form-label">Nueva Imagen (Opcional)</label>
+                                <input class="form-control" type="file" id="edit_imagen" accept="image/*"
+                                    name="imagen">
+                                <small class="form-text text-muted">Sube una nueva imagen solo si deseas reemplazar la
+                                    actual.</small>
+                            </div>
+                            <div class="text-center">
+                                <img id="current_image_preview" src="" alt="Imagen Actual"
+                                    class="img-fluid rounded" style="max-height: 150px;">
+                            </div>
+                        </div>
+
+                        <div class="modal-footer mt-3">
+                            <button type="button" class="btn bg-secondary" data-bs-dismiss="modal"
+                                style="color: white;">Cerrar</button>
+                            <button type="submit" class="btn bg-warning editSubmitBtn"
+                                style="color: white;">Actualizar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 @endsection
 @push('script')
     <script>
         $(document).ready(function() {
+            // check de tallas y capacidades
             const tallasCheckbox = $('input[data-tipo-nombre="Tallas"]');
             const capacidadesCheckbox = $('input[data-tipo-nombre="Capacidades"]');
 
@@ -394,6 +453,48 @@
                     },
                     complete: function() {
                         $('.addBtn').prop('disabled', false);
+                    }
+                });
+            });
+
+            $('.bs-edit-modal-lg').on('show.bs.modal', function(event) {
+                var button = $(event.relatedTarget);
+                var subcategoria = button.data('bs-obj');
+
+                var modal = $(this);
+                modal.find('#edit_id').val(subcategoria.id);
+                modal.find('#edit_nombre').val(subcategoria.nombre);
+                modal.find('#edit_descripcion').val(subcategoria.descripcion);
+                modal.find('#edit_tipo').val(subcategoria.tipo);
+                modal.find('#edit_categoria_id').val(subcategoria.categoria_id);
+                var imageUrl = '{{ asset('') }}' + subcategoria.imagen;
+                modal.find('#current_image_preview').attr('src', imageUrl);
+                modal.find('#edit_imagen').val('');
+            });
+
+            $('#editSubcategoriaForm').submit(function(e) {
+                e.preventDefault();
+                $('.editSubmitBtn').prop('disabled', true);
+
+                var formData = new FormData(this);
+
+                $.ajax({
+                    url: "{{ route('admin.categorias.editar') }}",
+                    type: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(res) {
+                        alert(res.message);
+                        if (res.success) {
+                            location.reload();
+                        }
+                    },
+                    error: function(xhr) {
+                        $('.editSubmitBtn').prop('disabled', false);
+                        var errorMessage = xhr.responseJSON?.message ||
+                            'Error al actualizar la subcategoría';
+                        alert(errorMessage);
                     }
                 });
             });
