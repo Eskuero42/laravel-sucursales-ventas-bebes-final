@@ -52,10 +52,6 @@
                                 class="btn btn-info waves-effect waves-light" title="Ir a detalles del producto">
                                 <i data-feather="eye"></i> Todos los productos
                             </a>
-                            <a href="#" class="btn btn-primary btn-icon waves-effect waves-light"
-                                title="Ir a detalles del producto">
-                                <i data-feather="eye"></i>
-                            </a>
                         </div>
                     </div>
                 </div>
