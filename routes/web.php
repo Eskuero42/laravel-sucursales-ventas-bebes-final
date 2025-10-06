@@ -115,3 +115,7 @@ Route::post('/admin/caracteristicas/registrar', [CaracteristicasController::clas
 Route::post('/admin/caracteristicas/editar-varios', [CaracteristicasController::class, 'editarcaracteristicas'])->name('admin.editar.caracteristicas');
 Route::post('/admin/caracteristicas/editar-uno', [CaracteristicasController::class, 'editarCaracteristica'])->name('admin.editar.caracteristica');
 Route::post('/admin/caracteristicas/elimiar-uno', [CaracteristicasController::class, 'eliminarCaracteristica'])->name('admin.eliminar.caracteristica');
+
+
+// Ventas
+Route::get('/admin/ventas/vender', [App\Http\Controllers\VentasController::class, 'vender'])->name('admin.ventas.vender');
