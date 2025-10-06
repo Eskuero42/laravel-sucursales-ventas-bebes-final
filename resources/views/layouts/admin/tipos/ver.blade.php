@@ -49,6 +49,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Nombre</th>
+                                        <th>Especificaciones Asignados</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -56,8 +57,9 @@
                                     @foreach ($tipos as $n => $tipo)
                                         <tr>
                                             <td>{{ $n + 1 }}</td>
+                                            <td> {{ $tipo->nombre }}</td>
                                             <td>
-                                                {{ $tipo->nombre }}
+                                                
                                                 <div class="d-flex flex-wrap gap-2 mt-2">
                                                     @foreach ($tipo->especificaciones as $especificacion)
                                                         @if ($tipo->id == 1)
@@ -67,6 +69,10 @@
                                                             </span>
                                                         @elseif ($tipo->nombre == 'Tallas')
                                                             <span class="badge bg-info">
+                                                                {{ $especificacion->descripcion }}
+                                                            </span>
+                                                        @elseif ($tipo->nombre == 'Capacidades')
+                                                            <span class="badge bg-success">
                                                                 {{ $especificacion->descripcion }}
                                                             </span>
                                                         @endif
@@ -163,46 +169,57 @@
     </div>
     <!-- Modal para editar tipos -->
     <div class="modal fade" id="showModal" tabindex="-1" aria-labelledby="showModal" aria-modal="true">
-        <div class="modal-dialog">
-            <div class="modal-content rounded-3 shadow-lg border-3">
-                <div class="modal-header bg-light border-0">
-                    <h5 class="modal-title text-warning fw-bold d-flex align-items-center" id="showModal">
-                        <i class="ri-layout-grid-line me-2"></i> Editar de Dato
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="updateForm" action="javascript:void(0);">
-                        @csrf
-                        <div class="row g-3">
-                            <input type="hidden" name="id" id="updateId">
-                            <div class="col-xxl-12">
-                                <div>
-                                    <label for="firstName" class="form-label fw-semibold">Descripción</label>
-                                    <input type="text" id="nombre" name="nombre"
-                                        class="form-control border-warning-subtle"placeholder="Ingrese su descripción"
-                                        required>
-                                </div>
-                            </div>
-                            <!-- Botones -->
-                            <div class="col-lg-12">
-                                <div class="hstack gap-2 justify-content-end pt-3">
-                                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">
-                                        <i class="ri-close-line align-middle"></i> Cancelar
-                                    </button>
-                                    <button type="submit" class="btn btn-warning updateBtn">
-                                        <i class="ri-check-line align-middle"></i> Actualizar
-                                    </button>
-                                </div>
-                            </div>
-
-                        </div><!--end row-->
-                    </form>
-                </div>
-
+    <div class="modal-dialog">
+        <div class="modal-content rounded-3 shadow-lg border-3">
+            <div class="modal-header bg-light border-0">
+                <h5 class="modal-title text-warning fw-bold d-flex align-items-center" id="showModal">
+                    <i class="ri-layout-grid-line me-2"></i> Editar de Dato
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <div class="modal-body">
+                <form id="updateForm" action="javascript:void(0);">
+                    @csrf
+                    <div class="row g-3">
+                        <input type="hidden" name="id" id="updateId">
+                        <div class="col-xxl-12">
+                            <div>
+                                <label for="firstName" class="form-label fw-semibold">Tipo</label>
+                                <input type="text" id="nombre" name="nombre"
+                                    class="form-control border-warning-subtle" placeholder="Ingrese su descripción"
+                                    required readonly>
+                            </div>
+                        </div>
+
+                        <!-- 🔹 Bloque adicional solo para mostrar colores/tallas/capacidades -->
+                        <div class="col-xxl-12 mt-3">
+                            <label class="form-label fw-semibold">Especificaciones asignadas</label>
+                            <div id="contenedorElementos" class="d-flex flex-wrap gap-2">
+                                <!-- Aquí se mostrarán dinámicamente los elementos -->
+                            </div>
+                        </div>
+                        <!-- 🔹 Fin del bloque adicional -->
+
+                        <!-- Botones -->
+                        <div class="col-lg-12">
+                            <div class="hstack gap-2 justify-content-end pt-3">
+                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+                                    <i class="ri-close-line align-middle"></i> Cancelar
+                                </button>
+                                <button type="submit" class="btn btn-warning updateBtn">
+                                    <i class="ri-check-line align-middle"></i> Actualizar
+                                </button>
+                            </div>
+                        </div>
+
+                    </div><!--end row-->
+                </form>
+            </div>
+
         </div>
     </div>
+</div>
+
     <!-- Modal para eliminar tipos -->
     <div class="modal fade" id="deleteRecordModal" tabindex="-1" aria-labelledby="deleteRecordModalLabel"
         aria-hidden="true">

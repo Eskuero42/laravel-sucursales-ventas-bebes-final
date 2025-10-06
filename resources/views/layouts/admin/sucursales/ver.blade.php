@@ -130,31 +130,31 @@
         </div>
     </div>
 
-    <!--modal de editar-->
-    <div class="modal fade" id="modalReegistrarCategoria" tabindex="-1" aria-labelledby="modalReegistrarCategoriaLabel"
+    <!-- modal de editar sucursales de categorias -->
+    <div class="modal fade" id="modalEditarCategoria" tabindex="-1" aria-labelledby="modalEditarCategoriaLabel"
         aria-modal="true">
-        <div class="modal-dialog modal-lg"><!-- sigue siendo grande -->
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <!-- Header -->
+
                 <div class="modal-header">
-                    <h5 class="modal-title fw-bold text-success-emphasis" id="modalReegistrarCategoriaLabel">
-                        <i class="ri-folder-add-line me-1"></i> Registrar Nueva Categoría
+                    <h5 class="modal-title fw-bold text-success-emphasis" id="modalEditarCategoriaLabel">
+                        <i class="ri-edit-box-line me-1"></i> Editar Categoría
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
                 </div>
 
-                <!-- Body con grid -->
+
                 <div class="modal-body">
-                    <form action="" id="editForm" enctype="multipart/form-data">
+                    <form id="updateForm" enctype="multipart/form-data">
                         @csrf
-                        <input type="hidden" name="sucursal" value="{{ $sucursal->id }}">
+                        <input type="hidden" id="editId" name="id">
+                        <input type="hidden" id="editSucursal" name="sucursal" value="{{ $sucursal->id }}">
 
                         <div class="row g-3">
                             <!-- Nombre -->
                             <div class="col-lg-12">
-                                <label for="nombre" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" id="nombre" name="nombre"
-                                    placeholder="Nombre de categoría" required>
+                                <label for="editNombre" class="form-label">Nombre</label>
+                                <input type="text" class="form-control" id="editNombre" name="nombre" required>
                             </div>
 
                             <!-- Tipo -->
@@ -163,45 +163,43 @@
                                 <div class="d-flex gap-4">
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="tipo"
-                                            id="tipo_detallado" value="detallado" required>
-                                        <label class="form-check-label" for="tipo_detallado">
-                                            Ropa
-                                        </label>
+                                            id="edit_tipo_detallado" value="detallado">
+                                        <label class="form-check-label" for="edit_tipo_detallado">Ropa</label>
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="tipo"
-                                            id="tipo_no_detallado" value="no detallado">
-                                        <label class="form-check-label" for="tipo_no_detallado">
-                                            Otros
-                                        </label>
+                                            id="edit_tipo_no_detallado" value="no detallado">
+                                        <label class="form-check-label" for="edit_tipo_no_detallado">Otros</label>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Imagen -->
                             <div class="col-lg-12">
-                                <label for="imagen" class="form-label">Imagen</label>
-                                <input class="form-control" type="file" id="imagen" accept="image/*"
-                                    name="imagen" required>
+                                <label for="editImagen" class="form-label">Imagen</label>
+                                <input class="form-control" type="file" id="editImagen" accept="image/*"
+                                    name="imagen">
+                                <img id="editPreview" class="mt-2 rounded shadow-sm border" src=""
+                                    style="max-height: 200px; display: none;">
                             </div>
 
                             <!-- Descripción -->
                             <div class="col-lg-12">
-                                <label for="descripcion" class="form-label">Descripción</label>
-                                <textarea class="form-control" id="descripcion" rows="3" name="descripcion"
-                                    placeholder="Introducir descripción del producto" required></textarea>
+                                <label for="editDescripcion" class="form-label">Descripción</label>
+                                <textarea class="form-control" id="editDescripcion" rows="3" name="descripcion" required></textarea>
                             </div>
 
-                            <!-- Footer de botones -->
+                            <!-- Footer -->
                             <div class="col-lg-12">
-                                <div class="hstack gap-2 justify-content-end">
+                                <div class="hstack gap-2 justify-content-end mt-3">
                                     <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
-                                    <button type="submit" class="btn btn-success addBtn">Agregar</button>
+                                    <button type="submit" class="btn btn-success updateBtn">Actualizar</button>
                                 </div>
                             </div>
                         </div>
                     </form>
-                </div> <!-- modal-body -->
+                </div>
+
             </div>
         </div>
     </div>
@@ -340,7 +338,7 @@
 
                 // Mostrar la imagen actual
                 if (data.imagen) {
-                    $('#editPreview').attr('src', '/storage/' + data.imagen).show();
+                    $('#editPreview').attr('src', '/' + data.imagen).show();
                 } else {
                     $('#editPreview').hide();
                 }

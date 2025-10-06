@@ -125,12 +125,12 @@ class CategoriasController extends Controller
             'sucursales.*' => 'exists:sucursales,id',
         ]);
 
-        
+
         $categoria = Categoria::findOrFail($validated['id']);
 
-        
+
         if ($request->hasFile('imagen')) {
-            
+
             if ($categoria->imagen && File::exists(public_path($categoria->imagen))) {
                 File::delete(public_path($categoria->imagen));
             }
@@ -152,11 +152,9 @@ class CategoriasController extends Controller
         $categoria->descripcion = $validated['descripcion'];
         $categoria->categoria_id = $validated['categoria_id'] ?? null;
         $categoria->save();
-        if ($request->has('sucursales') && !empty($validated['sucursales'])) {
-            
+
+        if ($request->filled('sucursales')) {
             $categoria->sucursales()->sync($validated['sucursales']);
-        } else {
-            $categoria->sucursales()->detach();
         }
 
         return response()->json([
