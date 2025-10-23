@@ -80,6 +80,93 @@
                                                         <i class="ri-eye-line align-middle me-1"></i> Ver
                                                     </a>
 
+
+
+                                                    
+
+                                                    <!-- Botón -->
+                                                    <a class="btn btn-info comprarArticuloBtn" data-bs-toggle="modal"
+                                                        data-bs-target="#compraArticuloModal" title="Comprar producto">
+                                                        <i class="ri-shopping-cart-line"></i>
+                                                    </a>
+
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="compraArticuloModal" tabindex="-1"
+                                                        aria-labelledby="compraArticuloModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered modal-md">
+                                                            <div class="modal-content border-0 shadow-sm rounded-4">
+
+                                                                <div class="modal-header bg-info-subtle">
+                                                                    <h5 class="modal-title text-info fw-semibold"
+                                                                        id="compraArticuloModalLabel">
+                                                                        <i class="ri-shopping-cart-line me-2"></i>Registrar
+                                                                        Compra
+                                                                    </h5>
+                                                                    <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Cerrar"></button>
+                                                                </div>
+
+                                                                <div class="modal-body">
+                                                                    <form id="formCompraArticulo" class="needs-validation"
+                                                                        novalidate>
+
+                                                                        <div class="mb-3">
+                                                                            <label for="proveedor"
+                                                                                class="form-label fw-medium">Proveedor</label>
+                                                                            <select id="proveedor" class="form-select"
+                                                                                required>
+                                                                                <option value="">Seleccionar
+                                                                                    proveedor...</option>
+                                                                                <option value="1">Proveedor A</option>
+                                                                            </select>
+                                                                        </div>
+
+                                                                        <div class="form-check mb-3">
+                                                                            <input class="form-check-input" type="checkbox"
+                                                                                id="sinProveedor">
+                                                                            <label class="form-check-label text-muted"
+                                                                                for="sinProveedor">
+                                                                                Registrar compra sin proveedor
+                                                                            </label>
+                                                                        </div>
+
+                                                                        <div class="row g-3 align-items-end">
+                                                                            <div class="col-md-6">
+                                                                                <label class="form-label fw-medium">Stock
+                                                                                    actual</label>
+                                                                                <input type="number" id="stockActual"
+                                                                                    class="form-control text-center"
+                                                                                    value="35" readonly>
+                                                                            </div>
+
+                                                                            <div class="col-md-6">
+                                                                                <label class="form-label fw-medium">Aumentar
+                                                                                    stock</label>
+                                                                                <input type="number" id="aumentarStock"
+                                                                                    class="form-control text-center"
+                                                                                    placeholder="Ej. 10">
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-light"
+                                                                        data-bs-dismiss="modal">Cancelar</button>
+                                                                    <button type="submit" form="formCompraArticulo"
+                                                                        class="btn btn-info">
+                                                                        <i class="ri-check-line me-1"></i>Guardar
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+
+
                                                     <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
                                                         data-bs-target="#showModal" data-id="{{ $sucursal->id }}"
                                                         data-nombre="{{ $sucursal->nombre }}"
@@ -167,18 +254,18 @@
                             @endif
                         </div>
                         <!--
-                                                                                                                        <div class="d-flex justify-content-end">
-                                                                                                                            <div class="pagination-wrap hstack gap-2">
-                                                                                                                                <a class="page-item pagination-prev disabled" href="javascript:void(0);">
-                                                                                                                                    Previous
-                                                                                                                                </a>
-                                                                                                                                <ul class="pagination listjs-pagination mb-0"></ul>
-                                                                                                                                <a class="page-item pagination-next" href="javascript:void(0);">
-                                                                                                                                    Next
-                                                                                                                                </a>
-                                                                                                                            </div>
-                                                                                                                        </div>
-                                                                                                                        <-- end pagination -->
+                                                                                                                                <div class="d-flex justify-content-end">
+                                                                                                                                    <div class="pagination-wrap hstack gap-2">
+                                                                                                                                        <a class="page-item pagination-prev disabled" href="javascript:void(0);">
+                                                                                                                                            Previous
+                                                                                                                                        </a>
+                                                                                                                                        <ul class="pagination listjs-pagination mb-0"></ul>
+                                                                                                                                        <a class="page-item pagination-next" href="javascript:void(0);">
+                                                                                                                                            Next
+                                                                                                                                        </a>
+                                                                                                                                    </div>
+                                                                                                                                </div>
+                                                                                                                                <-- end pagination -->
                     </div>
                 </div><!-- end card -->
             </div>

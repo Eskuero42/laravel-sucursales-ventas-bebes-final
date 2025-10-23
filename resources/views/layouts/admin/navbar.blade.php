@@ -83,8 +83,16 @@
                 </li>
 
                 <li class="nav-item">
+                    <a class="nav-link menu-link text-white bg-baby-sky" href="{{ route('admin.pedidos.listar') }}">
+                        <img src="{{ asset('backend\assets\images\adminBebBus\iconos\pedidos.png') }}"
+                            alt="Productos" class="img-fluid avatar-xs me-2">
+                        <span class="fs-3">Pedidos</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
                     <a class="nav-link menu-link text-white bg-baby-sky" href="{{-- route('admin.categorias.listar') --}}">
-                        <img src="{{ asset('backend\assets\images\adminBebBus\iconos\calendario.ico') }}"
+                        <img src="{{ asset('backend\assets\images\adminBebBus\iconos\calendario.png') }}"
                             alt="Calendario" class="img-fluid avatar-xs me-2">
                         <span class="fs-3">Calendario</span>
                     </a>

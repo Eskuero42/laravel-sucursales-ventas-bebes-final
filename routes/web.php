@@ -119,3 +119,8 @@ Route::post('/admin/caracteristicas/elimiar-uno', [CaracteristicasController::cl
 
 // Ventas
 Route::get('/admin/ventas/vender', [App\Http\Controllers\VentasController::class, 'vender'])->name('admin.ventas.vender');
+
+
+// Ventas
+Route::get('/admin/pedidos/listar', [App\Http\Controllers\PedidosController::class, 'ver'])->name('admin.pedidos.listar');
+Route::get('/admin/pedidos/ver/', [App\Http\Controllers\PedidosController::class, 'pedidoVer'])->name('admin.pedidos.ver');
